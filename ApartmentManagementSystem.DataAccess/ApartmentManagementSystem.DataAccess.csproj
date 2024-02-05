@@ -20,8 +20,4 @@
     <ProjectReference Include="..\ApartmentManagementSystem.Entities\ApartmentManagementSystem.Entities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Abstract\" />
-  </ItemGroup>
-
 </Project>
