@@ -4,6 +4,7 @@ using ApartmentManagementSystem.DataAccess.EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApartmentManagementSystem.DataAccess.Migrations
 {
     [DbContext(typeof(ApartmentManagementDbContext))]
-    partial class ApartmentManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240205094931_user_add_data")]
+    partial class user_add_data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -167,14 +170,6 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("3886f660-c478-4902-9973-8525ab2e8ddc"),
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        });
                 });
 
             modelBuilder.Entity("ApartmentManagementSystem.Entities.Entity.User", b =>
@@ -257,9 +252,9 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("16000b90-c7e2-493e-aa1c-9dbba7e9e0a2"),
+                            Id = new Guid("b6b6fe84-443f-4cf8-9de3-30dfcbde1200"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8b2080d3-eb28-469e-b952-71e61385fcca",
+                            ConcurrencyStamp = "451bdf80-6bb8-4893-8cca-b8e8da61b64f",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             IdentificationNumber = "11111111111",
@@ -267,7 +262,7 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN@ADMIN.com",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMtiHVZwYTFEcvmBi5ZfoqSHzC9TwWe0AFygB8zMO2g2HAjDjFkkWkNCIxXi0cgoVw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENXdZjw4hJKmQJBiptvhj3bu+T8QwrPYOm1x0gNcunOBvkWWMFZVLa6oxd7OGZHfhg==",
                             PhoneNumberConfirmed = false,
                             Surname = "ADMIN",
                             TwoFactorEnabled = false,
@@ -357,13 +352,6 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = new Guid("16000b90-c7e2-493e-aa1c-9dbba7e9e0a2"),
-                            RoleId = new Guid("3886f660-c478-4902-9973-8525ab2e8ddc")
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>

@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApartmentManagementDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"))
 );
-builder.Services.AddIdentity<User, UserRole>().AddEntityFrameworkStores<ApartmentManagementDbContext>();
+builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<ApartmentManagementDbContext>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagementSystem.Entities.Entity
 {
-    public class UserRole : IdentityRole<Guid>, IEntity
+    public class Role : IdentityRole<Guid>, IEntity
     {
     }
 }
