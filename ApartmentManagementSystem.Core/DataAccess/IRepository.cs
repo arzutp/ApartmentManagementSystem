@@ -12,7 +12,7 @@ namespace ApartmentManagementSystem.Core.DataAccess
         Task<T> AddAsync(T entity);
         void Update(T entity);
         Task DeleteAsync(int id);
-        IQueryable<T> GetAllAsync();
+        List<T> GetAll();
         Task<T> GetById(int id);
     }
 }

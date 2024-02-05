@@ -35,9 +35,9 @@ public class BaseRepository<T> : IRepository<T>
         _context.Remove(result!);
     }
 
-    public IQueryable<T> GetAllAsync()
+    public List<T> GetAll()
     {
-        return _context.Set<T>().AsNoTracking().AsQueryable();
+        return _context.Set<T>().AsNoTracking().ToList();
     }
 
     public async Task<T> GetById(int id)

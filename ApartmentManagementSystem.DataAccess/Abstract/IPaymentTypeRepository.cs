@@ -1,5 +1,4 @@
-﻿using ApartmentManagementSystem.Core.BaseEntity;
-using ApartmentManagementSystem.Core.DataAccess;
+﻿using ApartmentManagementSystem.Core.DataAccess;
 using ApartmentManagementSystem.Entities.Entity;
 using System;
 using System.Collections.Generic;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagementSystem.DataAccess.Abstract
 {
-    public interface IPaymentInformationRepository: IRepository<PaymentInformation>
+    public interface IPaymentTypeRepository: IRepository<PaymentType>
     {
     }
 }

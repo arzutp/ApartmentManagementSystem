@@ -1,4 +1,9 @@
+using ApartmentManagementSystem.Business.Abstract;
+using ApartmentManagementSystem.Business.Concrete;
+using ApartmentManagementSystem.Business.Mapping;
+using ApartmentManagementSystem.DataAccess.Abstract;
 using ApartmentManagementSystem.DataAccess.EntityFramework.Context;
+using ApartmentManagementSystem.DataAccess.EntityFramework.Repositories;
 using ApartmentManagementSystem.Entities.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,6 +16,11 @@ builder.Services.AddDbContext<ApartmentManagementDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"))
 );
 builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<ApartmentManagementDbContext>();
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddAutoMapper(typeof(UserMapper));
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
