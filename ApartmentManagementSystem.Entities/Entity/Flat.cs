@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection.Metadata;
+using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace ApartmentManagementSystem.Entities.Entity
         public int FlatNumber { get; set; }
 
         [ForeignKey("User")]
-        public Guid UserId { get; set; }
+        public Guid? UserId { get; set; }
         public User User { get; set; }
 
         public List<PaymentInformation> PaymentInformations { get; set; }

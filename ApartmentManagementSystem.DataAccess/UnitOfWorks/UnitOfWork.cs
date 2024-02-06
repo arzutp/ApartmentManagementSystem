@@ -5,14 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ApartmentManagementSystem.DataAccess.EntityFramework.Context;
 
 namespace ApartmentManagementSystem.Core.UnitOfWorks;
 
-public class UnitOfWork<T> : IUnitOfWork<T> where T : DbContext
+public class UnitOfWork: IUnitOfWork
 {
-    private readonly T _context;
+    private readonly ApartmentManagementDbContext _context;
 
-    public UnitOfWork(T context)
+    public UnitOfWork(ApartmentManagementDbContext context)
     {
         _context = context;
     }

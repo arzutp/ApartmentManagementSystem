@@ -25,6 +25,9 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
+            builder.Entity<User>().Property(x => x.ConcurrencyStamp).IsRowVersion();
+
             builder.Entity<Flat>()
                 .HasMany(f=>f.PaymentInformations)
                 .WithOne(p=>p.Flat)

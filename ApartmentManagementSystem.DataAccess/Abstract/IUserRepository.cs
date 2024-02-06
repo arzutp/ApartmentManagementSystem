@@ -10,5 +10,7 @@ namespace ApartmentManagementSystem.DataAccess.Abstract
 {
     public interface IUserRepository : IRepository<User>
     {
+        Task<User> GetById(Guid id);
+        Task DeleteAsync(Guid id);
     }
 }

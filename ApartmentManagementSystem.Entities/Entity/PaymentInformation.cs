@@ -13,7 +13,7 @@ namespace ApartmentManagementSystem.Entities.Entity
     {
         public int Id { get; set; }
         public bool IsPayed { get; set; }
-        public DateTime DateOfPayment { get; set; }
+        public DateTime? DateOfPayment { get; set; }
         public decimal Price { get; set; }
         public int Year { get; set; }
         public int Month { get; set; }
@@ -28,7 +28,7 @@ namespace ApartmentManagementSystem.Entities.Entity
 
         //ödeyen kullanıcı
         [ForeignKey("User")]
-        public Guid UserId { get; set; }
+        public Guid? UserId { get; set; }
         public User User { get; set; }
 
         //daire

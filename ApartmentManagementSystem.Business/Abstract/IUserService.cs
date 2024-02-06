@@ -13,8 +13,8 @@ namespace ApartmentManagementSystem.Business.Abstract
     {
         IDataResult<List<UserGetAllDto>> GetAll();
         Task<IResult> Add(UserAddDto user);
-        IResult Update(UserUpdateDto user);
-        Task<IResult> Delete(int id);
-        Task<IDataResult<UserGetByIdDto>> GetById(int id);
+        Task<IResult> Update(UserUpdateDto user);
+        Task<IResult> Delete(Guid id);
+        Task<IDataResult<UserGetByIdDto>> GetById(Guid id);
     }
 }

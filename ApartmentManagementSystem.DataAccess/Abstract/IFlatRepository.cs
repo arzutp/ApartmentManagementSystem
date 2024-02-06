@@ -10,5 +10,7 @@ namespace ApartmentManagementSystem.DataAccess.Abstract
 {
     public interface IFlatRepository : IRepository<Flat>
     {
+        Task DeleteAsync(int id);
+        Task<Flat> GetById(int id);
     }
 }

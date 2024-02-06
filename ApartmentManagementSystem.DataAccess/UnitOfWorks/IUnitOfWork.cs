@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagementSystem.Core.UnitOfWorks;
 
-public interface IUnitOfWork<T> where T : DbContext
+public interface IUnitOfWork 
 {
     int Commit();
     Task<int> CommitAsync();

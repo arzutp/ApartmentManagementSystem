@@ -10,9 +10,8 @@ namespace ApartmentManagementSystem.Core.DataAccess
     public interface IRepository<T> where T : class, IEntity
     {
         Task<T> AddAsync(T entity);
-        void Update(T entity);
-        Task DeleteAsync(int id);
+        Task Update(T entity); 
         List<T> GetAll();
-        Task<T> GetById(int id);
+        
     }
 }

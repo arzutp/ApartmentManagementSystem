@@ -16,7 +16,7 @@ public class BaseRepository<T> : IRepository<T>
         where T : class, IEntity
 { 
 
-    private readonly ApartmentManagementDbContext _context;
+    protected readonly ApartmentManagementDbContext _context;
 
     public BaseRepository(ApartmentManagementDbContext context)
     {
@@ -29,25 +29,27 @@ public class BaseRepository<T> : IRepository<T>
         return entity;
     }
 
-    public async Task DeleteAsync(int id)
-    {
-        var result = await _context.Set<T>().FirstOrDefaultAsync(x => x.Equals(id)); 
-        _context.Remove(result!);
-    }
+    //public async Task DeleteAsync(int id)
+    //{
+    //    var result = await _context.Set<T>().FirstOrDefaultAsync(x => x.Equals(id)); 
+    //    _context.Remove(result!);
+    //}
 
     public List<T> GetAll()
     {
         return _context.Set<T>().AsNoTracking().ToList();
     }
 
-    public async Task<T> GetById(int id)
-    {
-        var result = await _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(x=>x.Equals(id));
-        return result;
-    }
+    //public async Task<T> GetById(int id)
+    //{
+    //    var result = await _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(x=>x.Equals(id));
+    //    return result;
+    //}
 
-    public void Update(T entity)
+
+
+    public async Task Update(T entity)
     {
-        _context.Update(entity);
+        _context.Update(entity);    
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ApartmentManagementSystem.Business.Abstract;
+using ApartmentManagementSystem.Core.UnitOfWorks;
 using ApartmentManagementSystem.Entities.DTOs.UserDtos;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -11,11 +12,11 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly IMapper _mapper;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public UsersController(IMapper mapper, IUserService userService)
+        public UsersController(IUnitOfWork unitOfWork, IUserService userService)
         {
-            _mapper = mapper;
+            _unitOfWork = unitOfWork;
             _userService = userService;
         }
 
@@ -29,7 +30,31 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
         public async Task<IActionResult> AddUser(UserAddDto userAddDto)
         {
             await _userService.Add(userAddDto);
+            await _unitOfWork.CommitAsync();
             return Created();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdUser(Guid id)
+        {
+            var result = await _userService.GetById(id);
+            return Ok(result);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser(UserUpdateDto userUpdateDto)
+        {
+            await _userService.Update(userUpdateDto);
+             _unitOfWork.CommitAsync();
+            return NoContent();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUser(Guid id)
+        {
+            await _userService.Delete(id);
+            _unitOfWork.Commit();
+            return NoContent();
         }
     }
 }

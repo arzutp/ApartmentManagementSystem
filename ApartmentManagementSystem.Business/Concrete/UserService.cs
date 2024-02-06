@@ -4,6 +4,8 @@ using ApartmentManagementSystem.DataAccess.Abstract;
 using ApartmentManagementSystem.Entities.DTOs.UserDtos;
 using ApartmentManagementSystem.Entities.Entity;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +32,10 @@ namespace ApartmentManagementSystem.Business.Concrete
             return new SuccessResult();
         }
 
-        public Task<IResult> Delete(int id)
+        public async Task<IResult> Delete(Guid id)
         {
-            throw new NotImplementedException();
+            await _userRepository.DeleteAsync(id);
+            return new SuccessResult();
         }
 
         public IDataResult<List<UserGetAllDto>> GetAll()
@@ -42,14 +45,19 @@ namespace ApartmentManagementSystem.Business.Concrete
             return new SuccessDataResult<List<UserGetAllDto>>(result);
         }
 
-        public Task<IDataResult<UserGetByIdDto>> GetById(int id)
+        public async Task<IDataResult<UserGetByIdDto>> GetById(Guid id)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.GetById(id);
+            var result = _mapper.Map<UserGetByIdDto>(user);
+            return new SuccessDataResult<UserGetByIdDto>(result);
         }
 
-        public IResult Update(UserUpdateDto user)
+        public async Task<IResult> Update(UserUpdateDto user)
         {
-            throw new NotImplementedException();
+
+            var userDto = _mapper.Map<User>(user);
+            await _userRepository.Update(userDto);
+            return new SuccessResult();
         }
     }
 }
