@@ -3,11 +3,13 @@ using ApartmentManagementSystem.Business.Concrete;
 using ApartmentManagementSystem.Core.UnitOfWorks;
 using ApartmentManagementSystem.Entities.DTOs.UserDtos;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApartmentManagementSystem.WebAPI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
@@ -21,6 +23,7 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
             _userService = userService;
         }
 
+        
         [HttpGet]
         public IActionResult GetAllUsers()
         {

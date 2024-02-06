@@ -3,11 +3,13 @@ using ApartmentManagementSystem.Business.Concrete;
 using ApartmentManagementSystem.Core.UnitOfWorks;
 using ApartmentManagementSystem.Entities.DTOs.InvoiceTypeDtos;
 using ApartmentManagementSystem.Entities.DTOs.PaymentInformationDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApartmentManagementSystem.WebAPI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class PaymentInformationsController : ControllerBase

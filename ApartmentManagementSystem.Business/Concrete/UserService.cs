@@ -5,11 +5,13 @@ using ApartmentManagementSystem.DataAccess.Abstract;
 using ApartmentManagementSystem.Entities.DTOs.UserDtos;
 using ApartmentManagementSystem.Entities.Entity;
 using AutoMapper;
+using Azure.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,18 +21,26 @@ namespace ApartmentManagementSystem.Business.Concrete
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        private readonly UserManager<User> _userManager;
+        public UserService(IUserRepository userRepository, IMapper mapper, UserManager<User> userManager)
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
-        public async Task<IResult> Add(UserAddDto user)
+        public async Task<IDataResult<List<Guid>>> Add(UserAddDto user)
         {
             var userDto = _mapper.Map<User>(user);
-            await _userRepository.AddAsync(userDto);
-            return new SuccessResult();
+            var result = await _userManager.CreateAsync(userDto, user.Password);
+
+            if (!result.Succeeded)
+            {
+                var errorList = result.Errors.Select(x => x.Description).ToList();
+
+                return new ErrorDataResult<List<Guid>>(errorList[0]);
+            }
+            return new SuccessDataResult<List<Guid>>(user.UserName);
         }
 
         public async Task<IResult> AddRangeAsync(List<UserAddDto> datas)

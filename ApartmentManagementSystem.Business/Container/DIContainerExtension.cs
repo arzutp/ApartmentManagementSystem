@@ -29,5 +29,6 @@ public static class DIContainerExtension
         services.AddScoped<IPaymentInformationRepository, PaymentInformationRepository>();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<AuthService>();
     }
 }
