@@ -16,6 +16,7 @@ namespace ApartmentManagementSystem.Entities.DTOs.PaymentInformationDtos
         public int Month { get; set; }
         public int InvoiceTypeId { get; set; }
         public int FlatId { get; set; }
+        public Guid? UserId { get; set; }
         public string? PaymentType { get; set; }
     }
 }
