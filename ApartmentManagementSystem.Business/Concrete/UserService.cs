@@ -1,4 +1,5 @@
 ﻿using ApartmentManagementSystem.Business.Abstract;
+using ApartmentManagementSystem.Core.DataAccess;
 using ApartmentManagementSystem.Core.Utilities;
 using ApartmentManagementSystem.DataAccess.Abstract;
 using ApartmentManagementSystem.Entities.DTOs.UserDtos;
@@ -29,6 +30,13 @@ namespace ApartmentManagementSystem.Business.Concrete
         {
             var userDto = _mapper.Map<User>(user);
             await _userRepository.AddAsync(userDto);
+            return new SuccessResult();
+        }
+
+        public async Task<IResult> AddRangeAsync(List<UserAddDto> datas)
+        {
+            var dto = _mapper.Map<List<User>>(datas);
+            await _userRepository.AddRangeAsync(dto);
             return new SuccessResult();
         }
 

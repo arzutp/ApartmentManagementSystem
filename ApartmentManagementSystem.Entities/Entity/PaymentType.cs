@@ -12,6 +12,6 @@ namespace ApartmentManagementSystem.Entities.Entity
         //kredi kartı - nakit tipi için
         public int Id { get; set; }
         public string Name { get; set; } = default!;
-        public PaymentInformation PaymentInformation { get; set; }
+        //public List<PaymentInformation> PaymentInformations { get; set; }
     }
 }

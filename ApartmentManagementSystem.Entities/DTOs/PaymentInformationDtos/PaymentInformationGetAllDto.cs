@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagementSystem.Entities.DTOs.PaymentInformationDtos
 {
-    public class PaymentInformationAddDto : PaymentInformationBaseWriteDto
+    public class PaymentInformationGetAllDto : PaymentInformationBaseReadDto
     {
-
     }
 }

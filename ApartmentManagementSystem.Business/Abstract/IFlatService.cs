@@ -1,5 +1,6 @@
 ﻿using ApartmentManagementSystem.Core.Utilities;
 using ApartmentManagementSystem.Entities.DTOs.FlatDtos;
+using ApartmentManagementSystem.Entities.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace ApartmentManagementSystem.Business.Abstract
     {
         IDataResult<List<FlatGetAllDto>> GetAll();
         Task<IResult> Add(FlatAddDto entity);
+        Task<IResult> AddRangeAsync(List<FlatAddDto> datas);
         Task<IResult> Update(FlatUpdateDto entity);
         Task<IResult> Delete(int id);
         Task<IDataResult<FlatGetByIdDto>> GetById(int id);

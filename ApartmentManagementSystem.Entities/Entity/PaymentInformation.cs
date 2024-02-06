@@ -17,13 +17,11 @@ namespace ApartmentManagementSystem.Entities.Entity
         public decimal Price { get; set; }
         public int Year { get; set; }
         public int Month { get; set; }
+        public string? PaymentType { get; set; }
 
-        //ödeme türü
-        public int PaymentTypeId { get; set; } = 0;  //default değeri 0
-        public PaymentType PaymentType { get; set; }
 
         //fatura türü
-        public int InvoiceTypeId { get; set; }
+        public int? InvoiceTypeId { get; set; }
         public InvoiceType InvoiceType { get; set; }
 
         //ödeyen kullanıcı
@@ -33,7 +31,7 @@ namespace ApartmentManagementSystem.Entities.Entity
 
         //daire
         public int FlatId { get; set; }
-        public Flat Flat { get; set; }
+        public Flat Flats { get; set; }
 
     }
 }

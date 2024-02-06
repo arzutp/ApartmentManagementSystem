@@ -4,6 +4,7 @@ using ApartmentManagementSystem.DataAccess.EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApartmentManagementSystem.DataAccess.Migrations
 {
     [DbContext(typeof(ApartmentManagementDbContext))]
-    partial class ApartmentManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240206115115_payment_information_update")]
+    partial class payment_information_update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,7 +72,12 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PaymentInformationId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PaymentInformationId");
 
                     b.ToTable("InvoiceTypes");
                 });
@@ -85,37 +93,19 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.Property<DateTime?>("DateOfPayment")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("FlatId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("InvoiceTypeId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsPayed")
                         .HasColumnType("bit");
 
                     b.Property<int>("Month")
                         .HasColumnType("int");
 
-                    b.Property<string>("PaymentType")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FlatId");
-
-                    b.HasIndex("InvoiceTypeId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("PaymentInformations");
                 });
@@ -132,7 +122,12 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PaymentInformationId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PaymentInformationId");
 
                     b.ToTable("PaymentTypes");
                 });
@@ -167,7 +162,7 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f80b5a0c-4954-4fbe-af7a-2a819238eb47"),
+                            Id = new Guid("e14a8d19-a5f3-4c85-8ffa-5459c1054d1e"),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -254,9 +249,9 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f7d1a916-1def-4cff-9307-d17e22f635e6"),
+                            Id = new Guid("b368f366-183b-4cc8-a630-104295384c9e"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ad6d58f8-a2a3-4d41-92ec-c6ab7383b3d8",
+                            ConcurrencyStamp = "9634c69a-4f87-4624-9992-5ade1a11c486",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             IdentificationNumber = "11111111111",
@@ -264,12 +259,27 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN@ADMIN.com",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBE0iGO4TyNErwfZpdTX//JQ0kvv2+FOPrbatoN+RQUjy/sCsUTCovil/Waivptdfw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOauP5g3QyimxFSyC/6yxYu56Vbf5el04svAVD4r/BZ/fwrmOhaunRWvZLyinp/y5g==",
                             PhoneNumberConfirmed = false,
                             Surname = "ADMIN",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         });
+                });
+
+            modelBuilder.Entity("FlatPaymentInformation", b =>
+                {
+                    b.Property<int>("FlatsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PaymentInformationsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FlatsId", "PaymentInformationsId");
+
+                    b.HasIndex("PaymentInformationsId");
+
+                    b.ToTable("FlatPaymentInformation");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -358,8 +368,8 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("f7d1a916-1def-4cff-9307-d17e22f635e6"),
-                            RoleId = new Guid("f80b5a0c-4954-4fbe-af7a-2a819238eb47")
+                            UserId = new Guid("b368f366-183b-4cc8-a630-104295384c9e"),
+                            RoleId = new Guid("e14a8d19-a5f3-4c85-8ffa-5459c1054d1e")
                         });
                 });
 
@@ -382,6 +392,21 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("PaymentInformationUser", b =>
+                {
+                    b.Property<int>("PaymentInformationsId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UsersId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("PaymentInformationsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("PaymentInformationUser");
+                });
+
             modelBuilder.Entity("ApartmentManagementSystem.Entities.Entity.Flat", b =>
                 {
                     b.HasOne("ApartmentManagementSystem.Entities.Entity.User", "User")
@@ -391,27 +416,33 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ApartmentManagementSystem.Entities.Entity.PaymentInformation", b =>
+            modelBuilder.Entity("ApartmentManagementSystem.Entities.Entity.InvoiceType", b =>
                 {
-                    b.HasOne("ApartmentManagementSystem.Entities.Entity.Flat", "Flats")
-                        .WithMany("PaymentInformations")
-                        .HasForeignKey("FlatId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                    b.HasOne("ApartmentManagementSystem.Entities.Entity.PaymentInformation", null)
+                        .WithMany("InvoiceTypes")
+                        .HasForeignKey("PaymentInformationId");
+                });
+
+            modelBuilder.Entity("ApartmentManagementSystem.Entities.Entity.PaymentType", b =>
+                {
+                    b.HasOne("ApartmentManagementSystem.Entities.Entity.PaymentInformation", null)
+                        .WithMany("PaymentTypes")
+                        .HasForeignKey("PaymentInformationId");
+                });
+
+            modelBuilder.Entity("FlatPaymentInformation", b =>
+                {
+                    b.HasOne("ApartmentManagementSystem.Entities.Entity.Flat", null)
+                        .WithMany()
+                        .HasForeignKey("FlatsId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ApartmentManagementSystem.Entities.Entity.InvoiceType", "InvoiceType")
-                        .WithMany("PaymentInformations")
-                        .HasForeignKey("InvoiceTypeId");
-
-                    b.HasOne("ApartmentManagementSystem.Entities.Entity.User", "User")
-                        .WithMany("PaymentInformations")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Flats");
-
-                    b.Navigation("InvoiceType");
-
-                    b.Navigation("User");
+                    b.HasOne("ApartmentManagementSystem.Entities.Entity.PaymentInformation", null)
+                        .WithMany()
+                        .HasForeignKey("PaymentInformationsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -465,21 +496,31 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ApartmentManagementSystem.Entities.Entity.Flat", b =>
+            modelBuilder.Entity("PaymentInformationUser", b =>
                 {
-                    b.Navigation("PaymentInformations");
+                    b.HasOne("ApartmentManagementSystem.Entities.Entity.PaymentInformation", null)
+                        .WithMany()
+                        .HasForeignKey("PaymentInformationsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ApartmentManagementSystem.Entities.Entity.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("ApartmentManagementSystem.Entities.Entity.InvoiceType", b =>
+            modelBuilder.Entity("ApartmentManagementSystem.Entities.Entity.PaymentInformation", b =>
                 {
-                    b.Navigation("PaymentInformations");
+                    b.Navigation("InvoiceTypes");
+
+                    b.Navigation("PaymentTypes");
                 });
 
             modelBuilder.Entity("ApartmentManagementSystem.Entities.Entity.User", b =>
                 {
                     b.Navigation("Flats");
-
-                    b.Navigation("PaymentInformations");
                 });
 #pragma warning restore 612, 618
         }

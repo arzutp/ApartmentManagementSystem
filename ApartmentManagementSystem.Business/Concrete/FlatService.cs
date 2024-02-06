@@ -32,6 +32,13 @@ namespace ApartmentManagementSystem.Business.Concrete
             return new SuccessResult();
         }
 
+        public async Task<IResult> AddRangeAsync(List<FlatAddDto> datas)
+        {
+            var flatDtos = _mapper.Map<List<Flat>>(datas);
+            await _flatRepository.AddRangeAsync(flatDtos);
+            return new SuccessResult();
+        }
+
         public async Task<IResult> Delete(int id)
         {
             await _flatRepository.DeleteAsync(id);

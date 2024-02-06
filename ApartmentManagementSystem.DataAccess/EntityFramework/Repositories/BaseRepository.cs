@@ -1,6 +1,7 @@
 ﻿using ApartmentManagementSystem.Core.BaseEntity;
 using ApartmentManagementSystem.Core.DataAccess;
 using ApartmentManagementSystem.DataAccess.EntityFramework.Context;
+using ApartmentManagementSystem.Entities.Entity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -27,6 +28,12 @@ public class BaseRepository<T> : IRepository<T>
     {
         await _context.AddAsync(entity);
         return entity;
+    }
+
+    public async Task<bool> AddRangeAsync(List<T> datas)
+    {
+        await _context.Set<T>().AddRangeAsync(datas);
+        return true;
     }
 
     //public async Task DeleteAsync(int id)

@@ -10,5 +10,7 @@ namespace ApartmentManagementSystem.DataAccess.Abstract
 {
     public interface IInvoiceTypeRepository: IRepository<InvoiceType>
     {
+        Task DeleteAsync(int id);
+        Task<InvoiceType> GetById(int id);
     }
 }

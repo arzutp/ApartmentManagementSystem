@@ -11,5 +11,7 @@ namespace ApartmentManagementSystem.DataAccess.Abstract
 {
     public interface IPaymentInformationRepository: IRepository<PaymentInformation>
     {
+        Task DeleteAsync(int id);
+        Task<PaymentInformation> GetById(int id);
     }
 }

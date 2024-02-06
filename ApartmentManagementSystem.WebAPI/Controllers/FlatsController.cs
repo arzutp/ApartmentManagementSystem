@@ -35,6 +35,14 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
             return Created();
         }
 
+        [HttpPost("AddList")]
+        public async Task<IActionResult> AddRangeFlats(List<FlatAddDto> flatAddDto)
+        {
+            await _flatService.AddRangeAsync(flatAddDto);
+            await _unitOfWork.CommitAsync();
+            return Created();
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdFlat(int id)
         {

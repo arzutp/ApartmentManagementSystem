@@ -29,10 +29,10 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Context
             builder.Entity<User>().Property(x => x.ConcurrencyStamp).IsRowVersion();
 
             builder.Entity<Flat>()
-                .HasMany(f=>f.PaymentInformations)
-                .WithOne(p=>p.Flat)
-                .HasForeignKey(p=>p.FlatId)
+                .HasMany(f => f.PaymentInformations)
+                .WithOne(p => p.Flats)
                 .OnDelete(DeleteBehavior.NoAction); //ana tablodan bir kayıt silindiğinde diğer tabloda ki kayıtların silinmesini de engellemek için
+
 
             //admin add
             var adminUserId = Guid.NewGuid();

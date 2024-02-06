@@ -22,6 +22,12 @@ public static class DIContainerExtension
         services.AddScoped<IFlatService, FlatService>();
         services.AddScoped<IFlatRepository, FlatRepository>();
 
+        services.AddScoped<IInvoiceTypeService, InvoiceTypeService>();
+        services.AddScoped<IInvoiceTypeRepository, InvoiceTypeRepository>();
+
+        services.AddScoped<IPaymentInformationService, PaymentInformationService>();
+        services.AddScoped<IPaymentInformationRepository, PaymentInformationRepository>();
+
         services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 }

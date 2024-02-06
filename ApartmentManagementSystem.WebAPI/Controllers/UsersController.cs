@@ -1,4 +1,5 @@
 ﻿using ApartmentManagementSystem.Business.Abstract;
+using ApartmentManagementSystem.Business.Concrete;
 using ApartmentManagementSystem.Core.UnitOfWorks;
 using ApartmentManagementSystem.Entities.DTOs.UserDtos;
 using AutoMapper;
@@ -34,6 +35,14 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
             return Created();
         }
 
+        [HttpPost("AddList")]
+        public async Task<IActionResult> AddRangeUsers(List<UserAddDto> userAddDto)
+        {
+            await _userService.AddRangeAsync(userAddDto);
+            await _unitOfWork.CommitAsync();
+            return Created();
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdUser(Guid id)
         {
@@ -45,7 +54,7 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
         public async Task<IActionResult> UpdateUser(UserUpdateDto userUpdateDto)
         {
             await _userService.Update(userUpdateDto);
-             _unitOfWork.CommitAsync();
+            await _unitOfWork.CommitAsync();
             return NoContent();
         }
 

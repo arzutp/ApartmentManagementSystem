@@ -12,5 +12,6 @@ namespace ApartmentManagementSystem.DataAccess.Abstract
     {
         Task DeleteAsync(int id);
         Task<Flat> GetById(int id);
+        
     }
 }

@@ -10,23 +10,21 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
 {
-    public class FlatRepository : BaseRepository<Flat>, IFlatRepository
+    public class PaymentInformationRepository : BaseRepository<PaymentInformation>, IPaymentInformationRepository
     {
-        public FlatRepository(ApartmentManagementDbContext context) : base(context)
+        public PaymentInformationRepository(ApartmentManagementDbContext context) : base(context)
         {
         }
-
-        
 
         public async Task DeleteAsync(int id)
         {
-            var result = await _context.Set<Flat>().FirstOrDefaultAsync(x => x.Id.Equals(id));
+            var result = await _context.Set<PaymentInformation>().FirstOrDefaultAsync(x => x.Id.Equals(id));
             _context.Remove(result!);
         }
 
-        public async Task<Flat> GetById(int id)
+        public async Task<PaymentInformation> GetById(int id)
         {
-            var result = await _context.Set<Flat>().AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(id));
+            var result = await _context.Set<PaymentInformation>().AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(id));
             return result;
         }
     }
