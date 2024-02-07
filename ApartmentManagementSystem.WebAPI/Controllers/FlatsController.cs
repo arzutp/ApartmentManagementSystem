@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApartmentManagementSystem.WebAPI.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class FlatsController : ControllerBase
@@ -29,12 +29,29 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
             return Ok(_flatService.GetAll());
         }
 
+        [HttpGet("FlatsWithUsers")]
+        public IActionResult GetAllWithUsers() {
+            return Ok(_flatService.GetAllWithUsers());
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddFlats(FlatAddDto flatAddDto)
         {
             await _flatService.Add(flatAddDto);
             await _unitOfWork.CommitAsync();
             return Created();
+        }
+
+        [HttpPut("AddOwner")]
+        public async Task<IActionResult> FlatAddUser(FlatUserAddDto flatUserAddDto)
+        {
+            var response = await _flatService.FlatAddUser(flatUserAddDto);
+            if(!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+            _unitOfWork.Commit();
+            return Ok();
         }
 
         [HttpPost("AddList")]

@@ -1,4 +1,5 @@
-﻿using ApartmentManagementSystem.Core.Utilities;
+﻿using ApartmentManagementSystem.Business.Abstract;
+using ApartmentManagementSystem.Core.Utilities;
 using ApartmentManagementSystem.Entities.DTOs.TokenDtos;
 using ApartmentManagementSystem.Entities.Entity;
 using Microsoft.AspNetCore.Identity;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagementSystem.Business.Concrete
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
         private readonly IConfiguration _configuration;
         private readonly UserManager<User> _userManager;

@@ -1,5 +1,6 @@
 ﻿using ApartmentManagementSystem.DataAccess.Abstract;
 using ApartmentManagementSystem.DataAccess.EntityFramework.Context;
+using ApartmentManagementSystem.Entities.DTOs.FlatDtos;
 using ApartmentManagementSystem.Entities.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,12 +17,48 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
         {
         }
 
-        
+        public async Task<bool> AddFlatOwner(Flat entity)
+        {
+            var isFlatInUser = await _context.Set<Flat>().Include(x=>x.User).FirstOrDefaultAsync(x=>x.UserId==entity.UserId);
+            if (isFlatInUser!=null)
+            {
+                return false;
+            }
+            var flat = await _context.Set<Flat>().Include(x=>x.User).FirstOrDefaultAsync(x=>x.Id == entity.Id);
+            if (flat != null)
+            {
+                flat.UserId = entity.UserId;
+                flat.Status = true;
+                return true;
+            }
+            return false;
+        }
 
         public async Task DeleteAsync(int id)
         {
             var result = await _context.Set<Flat>().FirstOrDefaultAsync(x => x.Id.Equals(id));
             _context.Remove(result!);
+        }
+
+        public List<FlatGetAllWithUsers> GetAllWithUsers()
+        {
+            var flatsWithUsers = _context.Flats.Include(x => x.User).Where(x=>x.User!=null).Select(x => new FlatGetAllWithUsers
+            {
+                Id = x.Id,
+                FlatNumber = x.FlatNumber,
+                Block = x.Block,
+                Floor = x.Floor,
+                Type = x.Type,
+                Status = x.Status,
+                IdentificationNumber = x.User.IdentificationNumber,
+                PhoneNumber = x.User.PhoneNumber,
+                Name = x.User.Name,
+                Surname = x.User.Surname,
+
+                
+            }).ToList();
+
+            return flatsWithUsers;
         }
 
         public async Task<Flat> GetById(int id)

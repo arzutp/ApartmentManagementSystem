@@ -45,11 +45,29 @@ namespace ApartmentManagementSystem.Business.Concrete
             return new SuccessResult();
         }
 
+        public async Task<IResult> FlatAddUser(FlatUserAddDto flatUserAddDto)
+        {
+            var flatDto = _mapper.Map<Flat>(flatUserAddDto);
+            var result = await _flatRepository.AddFlatOwner(flatDto);
+            if (!result)
+            {
+                return new ErrorResult("Bu kullanıcı zaten bir daireye atanmış.");
+            }
+            return new SuccessResult();
+        }
+
         public IDataResult<List<FlatGetAllDto>> GetAll()
         {
             var flats = _flatRepository.GetAll();
             var result = _mapper.Map<List<FlatGetAllDto>>(flats);
             return new SuccessDataResult<List<FlatGetAllDto>>(result);
+        }
+
+        public IDataResult<List<FlatGetAllWithUsers>> GetAllWithUsers()
+        {
+            var flatsWithUsers = _flatRepository.GetAllWithUsers();
+            var result = _mapper.Map<List<FlatGetAllWithUsers>>(flatsWithUsers);
+            return new SuccessDataResult<List<FlatGetAllWithUsers>>(result);
         }
 
         public async Task<IDataResult<FlatGetByIdDto>> GetById(int id)

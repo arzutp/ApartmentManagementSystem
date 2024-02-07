@@ -14,8 +14,10 @@ namespace ApartmentManagementSystem.Business.Mapping
         public FlatMapper() {
             CreateMap<Flat, FlatAddDto>().ReverseMap();
             CreateMap<Flat, FlatUpdateDto>().ReverseMap();
+            CreateMap<Flat, FlatUserAddDto>().ReverseMap();
             CreateMap<Flat, FlatGetAllDto>();
             CreateMap<Flat, FlatGetByIdDto>();
+            CreateMap<Flat, FlatGetAllWithUsers>();
         }
     }
 }

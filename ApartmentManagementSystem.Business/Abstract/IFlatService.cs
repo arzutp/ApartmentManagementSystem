@@ -12,10 +12,12 @@ namespace ApartmentManagementSystem.Business.Abstract
     public interface IFlatService
     {
         IDataResult<List<FlatGetAllDto>> GetAll();
+        IDataResult<List<FlatGetAllWithUsers>> GetAllWithUsers();
         Task<IResult> Add(FlatAddDto entity);
         Task<IResult> AddRangeAsync(List<FlatAddDto> datas);
         Task<IResult> Update(FlatUpdateDto entity);
         Task<IResult> Delete(int id);
         Task<IDataResult<FlatGetByIdDto>> GetById(int id);
+        Task<IResult> FlatAddUser(FlatUserAddDto flatUserAddDto);
     }
 }
