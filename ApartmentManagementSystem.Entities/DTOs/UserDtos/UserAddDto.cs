@@ -8,5 +8,6 @@ namespace ApartmentManagementSystem.Entities.DTOs.UserDtos
 {
     public class UserAddDto : UserBaseWriteDto
     {
+
     }
 }

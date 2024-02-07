@@ -10,5 +10,6 @@ namespace ApartmentManagementSystem.Business.Constants
     {
         public const string AuthInvalid = "Username or password is wrong";
         public const string AlreadyAssigned = "This user is already assigned to a flat";
+        public const string UserIsInValid = "User is invalid";
     }
 }

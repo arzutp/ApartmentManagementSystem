@@ -1,4 +1,5 @@
 ﻿using ApartmentManagementSystem.Business.Abstract;
+using ApartmentManagementSystem.Business.Constants;
 using ApartmentManagementSystem.Core.DataAccess;
 using ApartmentManagementSystem.Core.Utilities;
 using ApartmentManagementSystem.DataAccess.Abstract;
@@ -22,6 +23,7 @@ namespace ApartmentManagementSystem.Business.Concrete
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
+      
         public UserService(IUserRepository userRepository, IMapper mapper, UserManager<User> userManager)
         {
             _userRepository = userRepository;
@@ -73,6 +75,10 @@ namespace ApartmentManagementSystem.Business.Concrete
         public async Task<IResult> Update(UserUpdateDto user)
         {
             var updateUser = await _userManager.FindByIdAsync(user.Id.ToString());
+            if (updateUser == null)
+            {
+                return new ErrorResult(Messages.UserIsInValid);
+            }
             updateUser.IdentificationNumber = user.IdentificationNumber;
             updateUser.UserName = user.UserName;
             updateUser.PhoneNumber = user.PhoneNumber;
@@ -80,7 +86,10 @@ namespace ApartmentManagementSystem.Business.Concrete
             updateUser.Surname = user.Surname;
             updateUser.Email = user.Email;
             updateUser.PasswordHash = new PasswordHasher<User>().HashPassword(new User(), user.Password);
-            await _userManager.UpdateAsync(updateUser);
+
+            var result =  await _userManager.UpdateAsync(updateUser);
+            if (result.Errors.Any())
+                return new ErrorResult(result.Errors.ToString());
             return new SuccessResult();
         }
     }

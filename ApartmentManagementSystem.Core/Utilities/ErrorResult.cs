@@ -8,7 +8,9 @@ namespace ApartmentManagementSystem.Core.Utilities
 {
     public class ErrorResult : Result
     {
-        public ErrorResult( string message) : base(false, message)
+        public ErrorResult(List<string> errors) : base(false, errors) { 
+        }
+        public ErrorResult(string message) : base(false, message)
         {
         }
 
