@@ -60,7 +60,11 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateUser(UserUpdateDto userUpdateDto)
         {
-            await _userService.Update(userUpdateDto);
+            var result = await _userService.Update(userUpdateDto);
+            if(!result.IsSuccess)
+            {
+                return BadRequest();
+            }
             await _unitOfWork.CommitAsync();
             return NoContent();
         }

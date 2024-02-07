@@ -25,8 +25,8 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            //builder.Entity<User>().Property(u => u.ConcurrencyStamp)
-            //                              .IsConcurrencyToken();
+            builder.Entity<User>().Property(u => u.ConcurrencyStamp)
+                                          .IsConcurrencyToken();
 
 
             builder.Entity<Flat>()

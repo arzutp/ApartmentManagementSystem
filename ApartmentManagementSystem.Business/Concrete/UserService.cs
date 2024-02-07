@@ -72,11 +72,15 @@ namespace ApartmentManagementSystem.Business.Concrete
 
         public async Task<IResult> Update(UserUpdateDto user)
         {
-            var userDto = _mapper.Map<User>(user);
-            await _userManager.UpdateAsync(userDto);
-           // user.SecurityStamp = Guid.NewGuid().ToString();
-            
-            //await _userRepository.Update(userDto);
+            var updateUser = await _userManager.FindByIdAsync(user.Id.ToString());
+            updateUser.IdentificationNumber = user.IdentificationNumber;
+            updateUser.UserName = user.UserName;
+            updateUser.PhoneNumber = user.PhoneNumber;
+            updateUser.Name = user.Name;
+            updateUser.Surname = user.Surname;
+            updateUser.Email = user.Email;
+            updateUser.PasswordHash = new PasswordHasher<User>().HashPassword(new User(), user.Password);
+            await _userManager.UpdateAsync(updateUser);
             return new SuccessResult();
         }
     }
