@@ -33,18 +33,22 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUser(UserAddDto userAddDto)
         {
-            await _userService.Add(userAddDto);
+            var response = await _userService.Add(userAddDto);
+            if(!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
             await _unitOfWork.CommitAsync();
             return Created();
         }
 
-        [HttpPost("AddList")]
-        public async Task<IActionResult> AddRangeUsers(List<UserAddDto> userAddDto)
-        {
-            await _userService.AddRangeAsync(userAddDto);
-            await _unitOfWork.CommitAsync();
-            return Created();
-        }
+        //[HttpPost("AddList")]
+        //public async Task<IActionResult> AddRangeUsers(List<UserAddDto> userAddDto)
+        //{
+        //    await _userService.AddRangeAsync(userAddDto);
+        //    await _unitOfWork.CommitAsync();
+        //    return Created();
+        //}
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdUser(Guid id)

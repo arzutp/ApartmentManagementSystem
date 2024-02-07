@@ -38,17 +38,17 @@ namespace ApartmentManagementSystem.Business.Concrete
             {
                 var errorList = result.Errors.Select(x => x.Description).ToList();
 
-                return new ErrorDataResult<List<Guid>>(errorList[0]);
+                return new ErrorDataResult<List<Guid>>(errorList);
             }
             return new SuccessDataResult<List<Guid>>(user.UserName);
         }
 
-        public async Task<IResult> AddRangeAsync(List<UserAddDto> datas)
-        {
-            var dto = _mapper.Map<List<User>>(datas);
-            await _userRepository.AddRangeAsync(dto);
-            return new SuccessResult();
-        }
+        //public async Task<IResult> AddRangeAsync(List<UserAddDto> datas)
+        //{
+        //    var dto = _mapper.Map<List<User>>(datas);
+        //    await _userRepository.AddRangeAsync(dto);
+        //    return new SuccessResult();
+        //}
 
         public async Task<IResult> Delete(Guid id)
         {

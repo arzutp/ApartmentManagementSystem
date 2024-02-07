@@ -9,6 +9,7 @@ namespace ApartmentManagementSystem.Core.Utilities
     public interface IResult
     {
         bool IsSuccess { get; }
-        string Message { get; }
+        //string Message { get; }
+        public List<string>? Message { get; set; }
     }
 }

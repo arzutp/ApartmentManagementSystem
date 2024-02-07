@@ -8,6 +8,10 @@ namespace ApartmentManagementSystem.Core.Utilities
 {
     public class DataResult<T> : Result, IDataResult<T>
     {
+        public DataResult(T data, bool isSuccess, List<string> message) : base(isSuccess, message)
+        {
+            Data = data;
+        }
         public DataResult(T data, bool isSuccess, string message) : base(isSuccess, message)
         {
             Data = data;
