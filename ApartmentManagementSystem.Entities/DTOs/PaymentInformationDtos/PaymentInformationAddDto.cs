@@ -8,6 +8,6 @@ namespace ApartmentManagementSystem.Entities.DTOs.PaymentInformationDtos
 {
     public class PaymentInformationAddDto : PaymentInformationBaseWriteDto
     {
-
+        
     }
 }

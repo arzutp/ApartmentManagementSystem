@@ -72,9 +72,11 @@ namespace ApartmentManagementSystem.Business.Concrete
 
         public async Task<IResult> Update(UserUpdateDto user)
         {
-
             var userDto = _mapper.Map<User>(user);
-            await _userRepository.Update(userDto);
+            await _userManager.UpdateAsync(userDto);
+           // user.SecurityStamp = Guid.NewGuid().ToString();
+            
+            //await _userRepository.Update(userDto);
             return new SuccessResult();
         }
     }

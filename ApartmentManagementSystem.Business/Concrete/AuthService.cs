@@ -1,4 +1,5 @@
 ﻿using ApartmentManagementSystem.Business.Abstract;
+using ApartmentManagementSystem.Business.Constants;
 using ApartmentManagementSystem.Core.Utilities;
 using ApartmentManagementSystem.Entities.DTOs.TokenDtos;
 using ApartmentManagementSystem.Entities.Entity;
@@ -30,14 +31,14 @@ namespace ApartmentManagementSystem.Business.Concrete
             var hasUser = await _userManager.FindByNameAsync(request.UserName);
             if(hasUser is null)
             {
-                return new ErrorDataResult<TokenCreateResponseDto>("Username or password is wrong");
+                return new ErrorDataResult<TokenCreateResponseDto>(Messages.AuthInvalid);
             }
 
             var checkPassword = await _userManager.CheckPasswordAsync(hasUser!, request.Password);
 
             if(checkPassword == false)
             {
-                return new ErrorDataResult<TokenCreateResponseDto>("Username or password is wrong");
+                return new ErrorDataResult<TokenCreateResponseDto>(Messages.AuthInvalid);
             }
 
             var signatureKey = _configuration.GetSection("TokenOptions")["SignatureKey"]!;

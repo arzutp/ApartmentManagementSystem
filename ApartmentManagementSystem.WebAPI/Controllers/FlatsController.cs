@@ -54,6 +54,18 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
             return Ok();
         }
 
+        [HttpPut("FlatPayment")]
+        public async Task<IActionResult> FlatPaymentAdd(FlatPaymentAddDto flatPaymentAddDto)
+        {
+            var response = await _flatService.FlatPaymentAdd(flatPaymentAddDto);
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+            _unitOfWork.Commit();
+            return Ok();
+        }
+
         [HttpPost("AddList")]
         public async Task<IActionResult> AddRangeFlats(List<FlatAddDto> flatAddDto)
         {

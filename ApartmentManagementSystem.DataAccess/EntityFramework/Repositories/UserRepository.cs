@@ -1,6 +1,7 @@
 ﻿using ApartmentManagementSystem.DataAccess.Abstract;
 using ApartmentManagementSystem.DataAccess.EntityFramework.Context;
 using ApartmentManagementSystem.Entities.Entity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

@@ -25,6 +25,8 @@ namespace ApartmentManagementSystem.Entities.Entity
         public Guid? UserId { get; set; }
         public User User { get; set; }
 
+        public int BuildingId { get; set; }
+        public Building Building { get; set; }
         public List<PaymentInformation> PaymentInformations { get; set; }
     }
 

@@ -15,6 +15,6 @@ namespace ApartmentManagementSystem.DataAccess.Abstract
         Task<bool> AddFlatOwner(Flat entity);
         Task DeleteAsync(int id);
         Task<Flat> GetById(int id);
-        
+        Task<bool> FlatPaymentAdd(FlatPaymentAddDto entity);
     }
 }

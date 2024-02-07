@@ -13,11 +13,11 @@ namespace ApartmentManagementSystem.Entities.Entity
     {
         public int Id { get; set; }
         public bool IsPayed { get; set; }
-        public DateTime? DateOfPayment { get; set; }
+        public DateTime? DateOfPayment { get; set; } = null;
         public decimal Price { get; set; }
         public int Year { get; set; }
         public int Month { get; set; }
-        public string? PaymentType { get; set; }
+        public string? PaymentType { get; set; } = null;
 
 
         //fatura türü

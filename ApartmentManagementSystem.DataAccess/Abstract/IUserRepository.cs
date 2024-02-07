@@ -1,5 +1,6 @@
 ﻿using ApartmentManagementSystem.Core.DataAccess;
 using ApartmentManagementSystem.Entities.Entity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace ApartmentManagementSystem.DataAccess.Abstract
     {
         Task<User> GetById(Guid id);
         Task DeleteAsync(Guid id);
+        
     }
 }

@@ -9,5 +9,6 @@ namespace ApartmentManagementSystem.Entities.DTOs.UserDtos
     public class UserUpdateDto : UserBaseWriteDto
     {
         public Guid Id { get; set; }
+        public string SecurityStamp { get; set; }
     }
 }

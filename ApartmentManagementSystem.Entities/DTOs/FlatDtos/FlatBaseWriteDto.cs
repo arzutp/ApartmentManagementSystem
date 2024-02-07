@@ -13,5 +13,6 @@ namespace ApartmentManagementSystem.Entities.DTOs.FlatDtos
         public string Type { get; set; } = default!;
         public int Floor { get; set; }
         public int FlatNumber { get; set; }
+        public int BuildingId { get; set; }
     }
 }

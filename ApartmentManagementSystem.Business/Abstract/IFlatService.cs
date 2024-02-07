@@ -19,5 +19,6 @@ namespace ApartmentManagementSystem.Business.Abstract
         Task<IResult> Delete(int id);
         Task<IDataResult<FlatGetByIdDto>> GetById(int id);
         Task<IResult> FlatAddUser(FlatUserAddDto flatUserAddDto);
+        Task<IResult> FlatPaymentAdd(FlatPaymentAddDto entity);
     }
 }

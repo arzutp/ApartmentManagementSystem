@@ -1,4 +1,5 @@
 ﻿using ApartmentManagementSystem.Business.Abstract;
+using ApartmentManagementSystem.Business.Constants;
 using ApartmentManagementSystem.Core.Utilities;
 using ApartmentManagementSystem.DataAccess.Abstract;
 using ApartmentManagementSystem.DataAccess.EntityFramework.Repositories;
@@ -51,7 +52,17 @@ namespace ApartmentManagementSystem.Business.Concrete
             var result = await _flatRepository.AddFlatOwner(flatDto);
             if (!result)
             {
-                return new ErrorResult("Bu kullanıcı zaten bir daireye atanmış.");
+                return new ErrorResult(Messages.AlreadyAssigned);
+            }
+            return new SuccessResult();
+        }
+
+        public async Task<IResult> FlatPaymentAdd(FlatPaymentAddDto entity)
+        {
+            var result = await _flatRepository.FlatPaymentAdd(entity);
+            if (!result)
+            {
+                return new ErrorResult();
             }
             return new SuccessResult();
         }

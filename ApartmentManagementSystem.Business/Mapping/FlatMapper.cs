@@ -18,6 +18,7 @@ namespace ApartmentManagementSystem.Business.Mapping
             CreateMap<Flat, FlatGetAllDto>();
             CreateMap<Flat, FlatGetByIdDto>();
             CreateMap<Flat, FlatGetAllWithUsers>();
+            CreateMap<Flat, FlatPaymentAddDto>().ReverseMap();
         }
     }
 }

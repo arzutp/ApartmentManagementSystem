@@ -66,5 +66,26 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
             var result = await _context.Set<Flat>().AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(id));
             return result;
         }
+
+        public async Task<bool> FlatPaymentAdd(FlatPaymentAddDto entity)
+        {
+            var flat = await _context.Flats.FirstOrDefaultAsync(f => f.Id == entity.Id);
+            if(flat != null)
+            {
+                var payment = new PaymentInformation
+                {
+                    FlatId = flat.Id,
+                    Price = entity.Price,
+                    IsPayed = entity.IsPayed,
+                    Year = entity.Year,
+                    Month = entity.Month,
+                    InvoiceTypeId = entity.InvoiceTypeId
+                };
+                _context.Add(payment);
+                return true;
+            }
+            return false;
+            
+        }
     }
 }
