@@ -88,6 +88,12 @@ namespace ApartmentManagementSystem.Business.Concrete
             return new SuccessDataResult<FlatGetByIdDto>(result);
         }
 
+        public IDataResult<List<FlatPaymentGetAllDto>> PayedGetAllDto()
+        {
+            var flatWithPayed = _flatRepository.PayedGetAllDto();
+            return new SuccessDataResult<List<FlatPaymentGetAllDto>>(flatWithPayed);
+        }
+
         public async Task<IResult> Update(FlatUpdateDto entity)
         {
             var flatDto = _mapper.Map<Flat>(entity);

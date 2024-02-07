@@ -29,6 +29,9 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
             return Ok(_flatService.GetAll());
         }
 
+        [HttpGet("FlatWithPayed")]
+        public IActionResult PayedInvoice() => Ok(_flatService.PayedGetAllDto());
+
         [HttpGet("FlatsWithUsers")]
         public IActionResult GetAllWithUsers() {
             return Ok(_flatService.GetAllWithUsers());

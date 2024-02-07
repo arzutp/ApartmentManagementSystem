@@ -12,6 +12,7 @@ namespace ApartmentManagementSystem.DataAccess.Abstract
     public interface IFlatRepository : IRepository<Flat>
     {
         List<FlatGetAllWithUsers> GetAllWithUsers();
+        List<FlatPaymentGetAllDto> PayedGetAllDto();
         Task<bool> AddFlatOwner(Flat entity);
         Task DeleteAsync(int id);
         Task<Flat> GetById(int id);

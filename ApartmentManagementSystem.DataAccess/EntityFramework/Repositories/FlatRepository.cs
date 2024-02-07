@@ -87,5 +87,27 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
             return false;
             
         }
+
+        public List<FlatPaymentGetAllDto> PayedGetAllDto()
+        {
+            var flatsWithPayment = _context.Set<PaymentInformation>().Include(p => p.Flats).Include(p=>p.InvoiceType).Where(p => p.IsPayed).Select(p => new FlatPaymentGetAllDto
+            {
+                Id = p.Id,
+                IsPayed=p.IsPayed,
+                FlatNumber = p.Flats.FlatNumber,
+                Floor = p.Flats.Floor,
+                Block = p.Flats.Block,
+                Status = p.Flats.Status,
+                Type = p.Flats.Type,
+                Price = p.Price,
+                Year = p.Year,
+                Month = p.Month,
+                InvoiceType = p.InvoiceType.Name
+
+            }).ToList(); 
+
+
+            return flatsWithPayment;
+        }
     }
 }
