@@ -140,6 +140,23 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
             return result;
         }
 
+        public async Task<List<PaymentGetByBuilding>> GetByBuildingNumber(int buildingNumber)
+        {
+            var buildings = await _context.Set<PaymentInformation>().Include(b=>b.Flats).ThenInclude(f=>f.Building).Include(f=>f.InvoiceType).Where(f=>f.Flats.Building.BuildingNumber == buildingNumber).Select(
+                x=> new PaymentGetByBuilding { 
+                    InvoiceType = x.InvoiceType.Name,
+                    IsPayed =x.IsPayed,
+                    Price = x.Price,
+                    Year = x.Year,
+                    Month = x.Month,
+                    FlatNumber = x.Flats.FlatNumber,
+                    BuildingName = x.Flats.Building.BuildingName,
+                    BuildingNumber = x.Flats.Building.BuildingNumber,
+
+                }).ToListAsync();
+
+            return buildings;
+        }
         
     }
 }

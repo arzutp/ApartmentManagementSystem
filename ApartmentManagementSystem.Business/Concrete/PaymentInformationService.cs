@@ -106,5 +106,11 @@ namespace ApartmentManagementSystem.Business.Concrete
             var payments = await _repository.GetByUser(userId);
             return new SuccessDataResult<List<PaymentGetByUser>>(payments);
         }
+
+        public async Task<IDataResult<List<PaymentGetByBuilding>>> GetByBuildingNumber(int buildingNumber)
+        {
+            var buildingWithPayments = await _repository.GetByBuildingNumber(buildingNumber);
+            return new SuccessDataResult<List<PaymentGetByBuilding>>(buildingWithPayments);
+        }
     }
 }

@@ -111,11 +111,17 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
         }
 
         [HttpGet("GetByUser")]
-        public async Task<IActionResult> UserByMonth(Guid userId)
+        public async Task<IActionResult> GetByUser(Guid userId)
         {
             var results = await _paymentInformationService.GetByUser(userId);
             return Ok(results);
         }
 
+        [HttpGet("GetByBuilding")]
+        public async Task<IActionResult> GetByBuilding(int buildingNumber)
+        {
+            var results = await _paymentInformationService.GetByBuildingNumber(buildingNumber);
+            return Ok(results);
+        }
     }
 }
