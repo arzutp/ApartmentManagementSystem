@@ -43,6 +43,13 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
             return Ok(results.Data);
         }
 
+        [HttpGet("TotalMonthlyUnpaidWithFlat")]
+        public async Task<IActionResult> GetMonthWithFlatTotal(int month)
+        {
+            var results = await _paymentInformationService.GetByMonthTotalWithFlat(month);
+            return Ok(results.Data);
+        }
+
         [HttpGet("GetByYear")]
         public async Task<IActionResult> GetPaymentInformationByYear(int year)
         {
@@ -51,9 +58,16 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
         }
 
         [HttpGet("TotalYearlyUnpaid")]
-        public async Task<IActionResult> GetPaymentInformationByYeayTotal(int flatId, int year)
+        public async Task<IActionResult> GetPaymentInformationByYearTotal(int flatId, int year)
         {
             var results = await _paymentInformationService.GetByYearTotal(flatId, year);
+            return Ok(results.Data);
+        }
+
+        [HttpGet("TotalYearlyUnpaidWithFlat")]
+        public async Task<IActionResult> GetYearWithFlatTotal(int year)
+        {
+            var results = await _paymentInformationService.GetByYearTotalWithFlat(year);
             return Ok(results.Data);
         }
 
@@ -95,5 +109,13 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
             _unitOfWork.Commit();
             return NoContent();
         }
+
+        [HttpGet("GetByUserMonth")]
+        public async Task<IActionResult> UserByMonth(Guid userId)
+        {
+            var results = await _paymentInformationService.GetByUserMonth(userId);
+            return Ok(results);
+        }
+
     }
 }

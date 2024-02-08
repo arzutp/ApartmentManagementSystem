@@ -25,7 +25,7 @@ namespace ApartmentManagementSystem.Business.Concrete
             _repository = invoiceTypeRepository;
             _mapper = mapper;
         }
-       
+        
         public async Task<IResult> Add(InvoiceTypeAddDto entity)
         {
             var dto = _mapper.Map<InvoiceType>(entity);

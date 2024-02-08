@@ -20,7 +20,10 @@ namespace ApartmentManagementSystem.Business.Abstract
         Task<IDataResult<PaymentInformationGetByIdDto>> GetById(int id);
         Task<IDataResult<List<PaymentGetByMonth>>> GetByMonth(int month);
         Task<IDataResult<decimal>> GetByMonthTotal(int flatId, int month);
+        Task<IDataResult<Dictionary<int, decimal>>> GetByMonthTotalWithFlat(int month);
         Task<IDataResult<List<PaymentGetByYear>>> GetByYear(int year);
         Task<IDataResult<decimal>> GetByYearTotal(int flatId, int year);
+        Task<IDataResult<Dictionary<int, decimal>>> GetByYearTotalWithFlat(int year);
+        Task<IDataResult<List<PaymentGetByMonth>>> GetByUserMonth(Guid userId);
     }
 }

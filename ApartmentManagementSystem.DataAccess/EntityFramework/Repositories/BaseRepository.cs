@@ -24,7 +24,7 @@ public class BaseRepository<T> : IRepository<T>
         _context = context;
     }
 
-    public async Task<T> AddAsync(T entity)
+    public virtual async Task<T> AddAsync(T entity)
     {
         await _context.AddAsync(entity);
         return entity;
@@ -36,24 +36,10 @@ public class BaseRepository<T> : IRepository<T>
         return true;
     }
 
-    //public async Task DeleteAsync(int id)
-    //{
-    //    var result = await _context.Set<T>().FirstOrDefaultAsync(x => x.Equals(id)); 
-    //    _context.Remove(result!);
-    //}
-
     public List<T> GetAll()
     {
         return _context.Set<T>().AsNoTracking().ToList();
     }
-
-    //public async Task<T> GetById(int id)
-    //{
-    //    var result = await _context.Set<T>().AsNoTracking().FirstOrDefaultAsync(x=>x.Equals(id));
-    //    return result;
-    //}
-
-
 
     public async Task Update(T entity)
     {

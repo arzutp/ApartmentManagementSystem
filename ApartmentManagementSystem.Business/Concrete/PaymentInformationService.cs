@@ -70,6 +70,12 @@ namespace ApartmentManagementSystem.Business.Concrete
             return new SuccessDataResult<decimal>(result);
         }
 
+        public async Task<IDataResult<Dictionary<int, decimal>>> GetByMonthTotalWithFlat(int month)
+        {
+            var result = await _repository.GetByMonthTotalWithFlat(month);
+            return new SuccessDataResult<Dictionary<int, decimal>>(result);
+        }
+
         public async Task<IDataResult<List<PaymentGetByYear>>> GetByYear(int year)
         {
             var payments = await _repository.GetByYear(year);
@@ -82,11 +88,23 @@ namespace ApartmentManagementSystem.Business.Concrete
             return new SuccessDataResult<decimal>(result);
         }
 
+        public async Task<IDataResult<Dictionary<int, decimal>>> GetByYearTotalWithFlat(int year)
+        {
+            var result = await _repository.GetByYearTotalWithFlat(year);
+            return new SuccessDataResult<Dictionary<int, decimal>> (result);
+        }
+
         public async Task<IResult> Update(PaymentInformationUpdateDto entity)
         {
             var dto = _mapper.Map<PaymentInformation>(entity);
             await _repository.Update(dto);
             return new SuccessResult();
+        }
+
+        public async Task<IDataResult<List<PaymentGetByMonth>>> GetByUserMonth(Guid userId)
+        {
+            var payments = await _repository.GetByUserMonth(userId);
+            return new SuccessDataResult<List<PaymentGetByMonth>>(payments);
         }
     }
 }

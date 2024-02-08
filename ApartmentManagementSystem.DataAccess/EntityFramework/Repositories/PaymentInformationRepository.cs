@@ -18,6 +18,22 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
         {
         }
 
+        public override async Task<PaymentInformation> AddAsync(PaymentInformation entity)
+        {
+            var flat = await _context.Set<Flat>().FindAsync(entity.FlatId);
+            var userId = flat.UserId;
+            entity.UserId = userId;
+            return await base.AddAsync(entity);
+        }
+        //public async Task<PaymentInformation> AddAsync(PaymentInformation entity)
+        //{
+        //    var flat = await _context.Set<Flat>().FindAsync(entity.FlatId);
+        //    var userId = flat.UserId;
+        //    entity.UserId = userId;
+        //    await _context.AddAsync(entity);
+        //    return entity;
+        //}
+
         public async Task DeleteAsync(int id)
         {
             var result = await _context.Set<PaymentInformation>().FirstOrDefaultAsync(x => x.Id.Equals(id));
@@ -56,6 +72,22 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
             return result;
         }
 
+        public async Task<Dictionary<int, decimal>> GetByMonthTotalWithFlat(int month)
+        {
+            var flatsWithTotalPrice = new Dictionary<int, decimal>();
+            var payments = await _context.Set<PaymentInformation>().Where(x => x.Month == month && x.IsPayed == false).ToListAsync();
+            foreach (var payment in payments)
+            {
+                if (!flatsWithTotalPrice.ContainsKey(payment.FlatId))
+                {
+                    flatsWithTotalPrice[payment.FlatId] = 0;
+                }
+                flatsWithTotalPrice[payment.FlatId] += payment.Price;
+            }
+
+            return flatsWithTotalPrice;
+        }
+
         public async Task<List<PaymentGetByYear>> GetByYear(int year)
         {
 
@@ -80,6 +112,42 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
         public async Task<decimal> GetByYearTotal(int flatId, int year)
         {
             var result = await _context.Set<PaymentInformation>().Where(x => x.FlatId == flatId && x.Year == year && x.IsPayed == false).SumAsync(x => x.Price);
+            return result;
+        }
+
+        public async Task<Dictionary<int,decimal>> GetByYearTotalWithFlat( int year)
+        {
+            var flatsWithTotalPrice = new Dictionary<int, decimal>();
+            var payments = await _context.Set<PaymentInformation>().Where(x => x.Year == year && x.IsPayed == false).ToListAsync();
+            foreach (var payment in payments)
+            {
+                if (!flatsWithTotalPrice.ContainsKey(payment.FlatId))
+                {
+                    flatsWithTotalPrice[payment.FlatId] = 0;
+                }
+                flatsWithTotalPrice[payment.FlatId] += payment.Price;
+            }
+
+            return flatsWithTotalPrice;
+        }
+
+        public async Task<List<PaymentGetByMonth>> GetByUserMonth(Guid userId)
+        {
+            var result = await _context.Set<PaymentInformation>().AsNoTracking().Include(p => p.InvoiceType).Include(P => P.Flats).ThenInclude(p => p.User).Where(x=>x.UserId == userId).Select(x => new PaymentGetByMonth
+            {
+                IsPayed = x.IsPayed,
+                Price = x.Price,
+                Year = x.Year,
+                Month = x.Month,
+                InvoiceType = x.InvoiceType.Name,
+                Block = x.Flats.Block,
+                Floor = x.Flats.Floor,
+                FlatNumber = x.Flats.FlatNumber,
+                PhoneNumber = x.User.PhoneNumber,
+                Name = x.User.Name,
+                Surname = x.User.Surname
+
+            }).ToListAsync();
             return result;
         }
     }
