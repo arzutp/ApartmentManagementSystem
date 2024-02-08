@@ -4,6 +4,7 @@ using ApartmentManagementSystem.Core.DataAccess;
 using ApartmentManagementSystem.Core.Utilities;
 using ApartmentManagementSystem.DataAccess.Abstract;
 using ApartmentManagementSystem.Entities.DTOs.TokenDtos;
+using ApartmentManagementSystem.Entities.DTOs.UserDtos;
 using ApartmentManagementSystem.Entities.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -15,19 +16,18 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using ApartmentManagementSystem.Business.Token;
 
 namespace ApartmentManagementSystem.Business.Concrete
 {
     public class AuthService : IAuthService
     {
-        private readonly IConfiguration _configuration;
+        private readonly IJwtTokenCreate _jwtTokenCreate;
         private readonly UserManager<User> _userManager;
-        private readonly IPaymentInformationRepository _repository;
-        public AuthService(IConfiguration configuration, UserManager<User> userManager, IPaymentInformationRepository repository)
+        public AuthService(IJwtTokenCreate jwtTokenCreate, UserManager<User> userManager)
         {
-            _configuration = configuration;
+            _jwtTokenCreate = jwtTokenCreate;
             _userManager = userManager;
-            _repository = repository;
         }
 
         public async Task<IDataResult<TokenCreateResponseDto>> Login(AdminTokenCreateRequestDto request)
@@ -45,47 +45,8 @@ namespace ApartmentManagementSystem.Business.Concrete
                 return new ErrorDataResult<TokenCreateResponseDto>(Messages.AuthInvalid);
             }
 
-            var signatureKey = _configuration.GetSection("TokenOptions")["SignatureKey"]!;
-            var tokenExpireAsHour = _configuration.GetSection("TokenOptions")["Expire"]!;
-
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signatureKey));
-            SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
-
-            var claimList = new List<Claim>();
-
-            var userIdAsClaim = new Claim(ClaimTypes.NameIdentifier, hasUser.Id.ToString());
-            var userNameAsClaim = new Claim(ClaimTypes.Name, hasUser.Surname!);
-            var idAsClaim = new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString());
-
-            var userClaims = await _userManager.GetClaimsAsync(hasUser);
-
-            foreach (var claim in userClaims)
-            {
-                claimList.Add(new Claim(claim.Type, claim.Value));
-            }
-
-            claimList.Add(userIdAsClaim);
-            claimList.Add(userNameAsClaim);
-            claimList.Add(idAsClaim);
-
-            foreach (var role in await _userManager.GetRolesAsync(hasUser))
-            {
-                claimList.Add(new Claim(ClaimTypes.Role, role));
-            }
-
-            var token = new JwtSecurityToken(
-                expires: DateTime.Now.AddHours(Convert.ToDouble(tokenExpireAsHour)),
-                signingCredentials: signingCredentials,
-                claims: claimList
-                //issuer: issuer
-            );
-
-            var responseDto = new TokenCreateResponseDto
-            {
-                Token = new JwtSecurityTokenHandler().WriteToken(token),
-            };
-
-            return new SuccessDataResult<TokenCreateResponseDto>(responseDto);
+            var token = _jwtTokenCreate.CreateToken(hasUser);
+            return new SuccessDataResult<TokenCreateResponseDto>(token.Result);
         }
 
         public async Task<IDataResult<TokenCreateResponseDto>> UserLogin(UserTokenCreateRequestDto request)
@@ -96,51 +57,11 @@ namespace ApartmentManagementSystem.Business.Concrete
             if (hasUser == null)
                 return new ErrorDataResult<TokenCreateResponseDto>(Messages.AuthInvalid);
 
+            var token = _jwtTokenCreate.CreateToken(hasUser);
 
-            var signatureKey = _configuration.GetSection("TokenOptions")["SignatureKey"]!;
-            var tokenExpireAsHour = _configuration.GetSection("TokenOptions")["Expire"]!;
-
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signatureKey));
-            SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
-
-            var claimList = new List<Claim>();
-
-            var userIdAsClaim = new Claim(ClaimTypes.NameIdentifier, hasUser.Id.ToString());
-            var userNameAsClaim = new Claim(ClaimTypes.Name, hasUser.Surname!);
-            var idAsClaim = new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString());
-
-            var paymentIdList = _repository.GetByUser(hasUser.Id);
-            var paymentIdsAsString = string.Join(",", paymentIdList);
-            var paymendInformationAsClaim = new Claim("PaymentIds", paymentIdsAsString);
-
-            var userClaims = await _userManager.GetClaimsAsync(hasUser);
-
-            foreach (var claim in userClaims)
-            {
-                claimList.Add(new Claim(claim.Type, claim.Value));
-            }
-
-            claimList.Add(userIdAsClaim);
-            claimList.Add(userNameAsClaim);
-            claimList.Add(idAsClaim);
-            claimList.Add(paymendInformationAsClaim);
-
-            foreach (var role in await _userManager.GetRolesAsync(hasUser))
-            {
-                claimList.Add(new Claim(ClaimTypes.Role, role));
-            }
-
-            var token = new JwtSecurityToken(
-                expires: DateTime.Now.AddHours(Convert.ToDouble(tokenExpireAsHour)),
-                signingCredentials: signingCredentials,
-                claims: claimList
-            );
-
-            var responseDto = new TokenCreateResponseDto
-            {
-                Token = new JwtSecurityTokenHandler().WriteToken(token),
-            };
-            return new SuccessDataResult<TokenCreateResponseDto>(responseDto);
+            return new SuccessDataResult<TokenCreateResponseDto>(token.Result);
         }
+
+        
     }
 }

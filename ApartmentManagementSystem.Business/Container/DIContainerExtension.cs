@@ -1,5 +1,6 @@
 ﻿using ApartmentManagementSystem.Business.Abstract;
 using ApartmentManagementSystem.Business.Concrete;
+using ApartmentManagementSystem.Business.Token;
 using ApartmentManagementSystem.Core.UnitOfWorks;
 using ApartmentManagementSystem.DataAccess.Abstract;
 using ApartmentManagementSystem.DataAccess.EntityFramework.Repositories;
@@ -33,5 +34,6 @@ public static class DIContainerExtension
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IJwtTokenCreate, JwtTokenCreate>();
     }
 }
