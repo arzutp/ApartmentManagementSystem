@@ -18,9 +18,21 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateToken(TokenCreateRequestDto request)
+        public async Task<IActionResult> CreateTokenForAdmin(AdminTokenCreateRequestDto request)
         {
             var response = await _authService.Login(request);
+            if (!response.IsSuccess)
+            {
+                return BadRequest(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpPost("User")]
+        public async Task<IActionResult> CreateTokenForUser(UserTokenCreateRequestDto request)
+        {
+            var response = await _authService.UserLogin(request);
             if (!response.IsSuccess)
             {
                 return BadRequest(response);

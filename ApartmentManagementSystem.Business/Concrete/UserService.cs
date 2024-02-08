@@ -23,24 +23,32 @@ namespace ApartmentManagementSystem.Business.Concrete
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
-      
-        public UserService(IUserRepository userRepository, IMapper mapper, UserManager<User> userManager)
+        private readonly RoleManager<Role> _roleManager;
+        public UserService(IUserRepository userRepository, IMapper mapper, UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public async Task<IDataResult<List<Guid>>> Add(UserAddDto user)
         {
             var userDto = _mapper.Map<User>(user);
+            
             var result = await _userManager.CreateAsync(userDto, user.Password);
-
+            
             if (!result.Succeeded)
             {
                 var errorList = result.Errors.Select(x => x.Description).ToList();
 
                 return new ErrorDataResult<List<Guid>>(errorList);
+            }
+            if (result.Succeeded)
+            {
+                await _userManager.AddLoginAsync(userDto, new UserLoginInfo("IdentificationNumber", user.IdentificationNumber, null));
+
+                await _userManager.AddLoginAsync(userDto, new UserLoginInfo("PhoneNumber", user.PhoneNumber, null));
             }
             return new SuccessDataResult<List<Guid>>(user.UserName);
         }

@@ -10,6 +10,7 @@ namespace ApartmentManagementSystem.Business.Abstract
 {
     public interface IAuthService
     {
-        Task<IDataResult<TokenCreateResponseDto>> Login(TokenCreateRequestDto request);
+        Task<IDataResult<TokenCreateResponseDto>> Login(AdminTokenCreateRequestDto request);
+        Task<IDataResult<TokenCreateResponseDto>> UserLogin(UserTokenCreateRequestDto request);
     }
 }

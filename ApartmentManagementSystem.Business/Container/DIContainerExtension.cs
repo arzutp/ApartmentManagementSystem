@@ -32,6 +32,6 @@ public static class DIContainerExtension
         services.AddScoped<IBuildingRepository, BuildingRepository>();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<AuthService>();
+        services.AddScoped<IAuthService, AuthService>();
     }
 }

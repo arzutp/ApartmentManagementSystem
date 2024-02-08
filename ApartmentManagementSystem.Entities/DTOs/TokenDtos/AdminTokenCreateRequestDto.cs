@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagementSystem.Entities.DTOs.TokenDtos
 {
-    public class TokenCreateRequestDto
+    public class AdminTokenCreateRequestDto
     {
         public string UserName { get; set; } = default!;
         public string Password { get; set; } = default!;

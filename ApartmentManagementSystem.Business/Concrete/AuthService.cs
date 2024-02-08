@@ -26,7 +26,7 @@ namespace ApartmentManagementSystem.Business.Concrete
             _userManager = userManager;
         }
 
-        public async Task<IDataResult<TokenCreateResponseDto>> Login(TokenCreateRequestDto request)
+        public async Task<IDataResult<TokenCreateResponseDto>> Login(AdminTokenCreateRequestDto request)
         {
             var hasUser = await _userManager.FindByNameAsync(request.UserName);
             if(hasUser is null)
@@ -74,6 +74,58 @@ namespace ApartmentManagementSystem.Business.Concrete
                 signingCredentials: signingCredentials,
                 claims: claimList
                 //issuer: issuer
+            );
+
+            var responseDto = new TokenCreateResponseDto
+            {
+                Token = new JwtSecurityTokenHandler().WriteToken(token),
+            };
+
+            return new SuccessDataResult<TokenCreateResponseDto>(responseDto);
+        }
+
+        public async Task<IDataResult<TokenCreateResponseDto>> UserLogin(UserTokenCreateRequestDto request)
+        {
+            var hasUser = await _userManager.FindByLoginAsync("PhoneNumber", request.IdentificationNumberOrPhoneNumber) ??
+                          await _userManager.FindByLoginAsync("IdentificationNumber", request.IdentificationNumberOrPhoneNumber);
+
+            if(hasUser == null)
+                return new ErrorDataResult<TokenCreateResponseDto>(Messages.AuthInvalid);
+
+
+            var signatureKey = _configuration.GetSection("TokenOptions")["SignatureKey"]!;
+            var tokenExpireAsHour = _configuration.GetSection("TokenOptions")["Expire"]!;
+
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signatureKey));
+            SigningCredentials signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
+
+            var claimList = new List<Claim>();
+
+            var userIdAsClaim = new Claim(ClaimTypes.NameIdentifier, hasUser.Id.ToString());
+            var userNameAsClaim = new Claim(ClaimTypes.Name, hasUser.Surname!);
+            var idAsClaim = new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString());
+
+            var userClaims = await _userManager.GetClaimsAsync(hasUser);
+
+            foreach (var claim in userClaims)
+            {
+                claimList.Add(new Claim(claim.Type, claim.Value));
+            }
+
+            claimList.Add(userIdAsClaim);
+            claimList.Add(userNameAsClaim);
+            claimList.Add(idAsClaim);
+
+            foreach (var role in await _userManager.GetRolesAsync(hasUser))
+            {
+                claimList.Add(new Claim(ClaimTypes.Role, role));
+            }
+
+            var token = new JwtSecurityToken(
+                expires: DateTime.Now.AddHours(Convert.ToDouble(tokenExpireAsHour)),
+                signingCredentials: signingCredentials,
+                claims: claimList
+            //issuer: issuer
             );
 
             var responseDto = new TokenCreateResponseDto
