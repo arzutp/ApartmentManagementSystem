@@ -23,5 +23,7 @@ namespace ApartmentManagementSystem.DataAccess.Abstract
         Task<Dictionary<int, decimal>> GetByYearTotalWithFlat(int year);
         Task<List<PaymentGetByUser>> GetByUser(Guid userId);
         Task<List<PaymentGetByBuilding>> GetByBuildingNumber(int buildingNumber);
+        Task<List<PaymentGetByMonth>> GetByMonthForUser(int month, Guid userId);
+        Task<List<PaymentGetByYear>> GetByYearForUser(int year, Guid userId);
     }
 }

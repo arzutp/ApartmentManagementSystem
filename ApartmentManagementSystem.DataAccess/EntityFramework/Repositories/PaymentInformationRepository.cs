@@ -157,6 +157,45 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
 
             return buildings;
         }
-        
+
+        public async Task<List<PaymentGetByMonth>> GetByMonthForUser(int month, Guid userId)
+        {
+            var result = await _context.Set<PaymentInformation>().AsNoTracking().Where(x => x.Month == month && x.UserId == userId).Include(p => p.InvoiceType).Include(P => P.Flats).ThenInclude(p => p.User).Select(x => new PaymentGetByMonth
+            {
+                IsPayed = x.IsPayed,
+                Price = x.Price,
+                Year = x.Year,
+                Month = x.Month,
+                InvoiceType = x.InvoiceType.Name,
+                Block = x.Flats.Block,
+                Floor = x.Flats.Floor,
+                FlatNumber = x.Flats.FlatNumber,
+                PhoneNumber = x.User.PhoneNumber,
+                Name = x.User.Name,
+                Surname = x.User.Surname
+
+            }).ToListAsync();
+            return result;
+        }
+
+        public async Task<List<PaymentGetByYear>> GetByYearForUser(int year, Guid userId)
+        {
+            var result = await _context.Set<PaymentInformation>().AsNoTracking().Where(x => x.Year == year && x.UserId == userId).Include(p => p.InvoiceType).Include(P => P.Flats).ThenInclude(p => p.User).Select(x => new PaymentGetByYear
+            {
+                IsPayed = x.IsPayed,
+                Price = x.Price,
+                Year = x.Year,
+                Month = x.Month,
+                InvoiceType = x.InvoiceType.Name,
+                Block = x.Flats.Block,
+                Floor = x.Flats.Floor,
+                FlatNumber = x.Flats.FlatNumber,
+                PhoneNumber = x.User.PhoneNumber,
+                Name = x.User.Name,
+                Surname = x.User.Surname
+
+            }).ToListAsync();
+            return result;
+        }
     }
 }

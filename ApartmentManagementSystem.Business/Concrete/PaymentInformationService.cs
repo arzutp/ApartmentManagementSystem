@@ -113,5 +113,17 @@ namespace ApartmentManagementSystem.Business.Concrete
             var buildingWithPayments = await _repository.GetByBuildingNumber(buildingNumber);
             return new SuccessDataResult<List<PaymentGetByBuilding>>(buildingWithPayments);
         }
+
+        public async Task<IDataResult<List<PaymentGetByMonth>>> GetByMonthForUser(int month, Guid userId)
+        {
+            var results = await _repository.GetByMonthForUser(month, userId);
+            return new SuccessDataResult<List<PaymentGetByMonth>>(results);
+        }
+
+        public async Task<IDataResult<List<PaymentGetByYear>>> GetByYearForUser(int year, Guid userId)
+        {
+            var results = await _repository.GetByYearForUser(year, userId);
+            return new SuccessDataResult<List<PaymentGetByYear>>(results);
+        }
     }
 }

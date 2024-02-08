@@ -32,7 +32,7 @@ namespace ApartmentManagementSystem.Business.Concrete
             _roleManager = roleManager;
         }
 
-        public async Task<IDataResult<List<Guid>>> Add(UserAddDto user)
+        public async Task<IDataResult<Guid>> Add(UserAddDto user)
         {
             var userDto = _mapper.Map<User>(user);
             
@@ -41,8 +41,7 @@ namespace ApartmentManagementSystem.Business.Concrete
             if (!result.Succeeded)
             {
                 var errorList = result.Errors.Select(x => x.Description).ToList();
-
-                return new ErrorDataResult<List<Guid>>(errorList);
+                return new ErrorDataResult<Guid>(errorList);
             }
             if (result.Succeeded)
             {
@@ -50,7 +49,7 @@ namespace ApartmentManagementSystem.Business.Concrete
 
                 await _userManager.AddLoginAsync(userDto, new UserLoginInfo("PhoneNumber", user.PhoneNumber, null));
             }
-            return new SuccessDataResult<List<Guid>>(user.UserName);
+            return new SuccessDataResult<Guid>(user.UserName);
         }
 
         //public async Task<IResult> AddRangeAsync(List<UserAddDto> datas)
