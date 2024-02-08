@@ -6,6 +6,7 @@ using ApartmentManagementSystem.Entities.DTOs.PaymentInformationDtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ApartmentManagementSystem.WebAPI.Controllers
 {
@@ -121,6 +122,14 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
         public async Task<IActionResult> GetByBuilding(int buildingNumber)
         {
             var results = await _paymentInformationService.GetByBuildingNumber(buildingNumber);
+            return Ok(results);
+        }
+
+        [HttpGet("ForUser")]
+        public async Task<IActionResult> GetByForUser()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var results = await _paymentInformationService.GetByUser(Guid.Parse(userId));
             return Ok(results);
         }
     }

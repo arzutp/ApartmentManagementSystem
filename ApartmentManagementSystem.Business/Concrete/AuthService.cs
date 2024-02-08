@@ -1,6 +1,8 @@
 ﻿using ApartmentManagementSystem.Business.Abstract;
 using ApartmentManagementSystem.Business.Constants;
+using ApartmentManagementSystem.Core.DataAccess;
 using ApartmentManagementSystem.Core.Utilities;
+using ApartmentManagementSystem.DataAccess.Abstract;
 using ApartmentManagementSystem.Entities.DTOs.TokenDtos;
 using ApartmentManagementSystem.Entities.Entity;
 using Microsoft.AspNetCore.Identity;
@@ -20,10 +22,12 @@ namespace ApartmentManagementSystem.Business.Concrete
     {
         private readonly IConfiguration _configuration;
         private readonly UserManager<User> _userManager;
-        public AuthService(IConfiguration configuration, UserManager<User> userManager)
+        private readonly IPaymentInformationRepository _repository;
+        public AuthService(IConfiguration configuration, UserManager<User> userManager, IPaymentInformationRepository repository)
         {
             _configuration = configuration;
             _userManager = userManager;
+            _repository = repository;
         }
 
         public async Task<IDataResult<TokenCreateResponseDto>> Login(AdminTokenCreateRequestDto request)
@@ -89,7 +93,7 @@ namespace ApartmentManagementSystem.Business.Concrete
             var hasUser = await _userManager.FindByLoginAsync("PhoneNumber", request.IdentificationNumberOrPhoneNumber) ??
                           await _userManager.FindByLoginAsync("IdentificationNumber", request.IdentificationNumberOrPhoneNumber);
 
-            if(hasUser == null)
+            if (hasUser == null)
                 return new ErrorDataResult<TokenCreateResponseDto>(Messages.AuthInvalid);
 
 
@@ -105,6 +109,10 @@ namespace ApartmentManagementSystem.Business.Concrete
             var userNameAsClaim = new Claim(ClaimTypes.Name, hasUser.Surname!);
             var idAsClaim = new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString());
 
+            var paymentIdList = _repository.GetByUser(hasUser.Id);
+            var paymentIdsAsString = string.Join(",", paymentIdList);
+            var paymendInformationAsClaim = new Claim("PaymentIds", paymentIdsAsString);
+
             var userClaims = await _userManager.GetClaimsAsync(hasUser);
 
             foreach (var claim in userClaims)
@@ -115,6 +123,7 @@ namespace ApartmentManagementSystem.Business.Concrete
             claimList.Add(userIdAsClaim);
             claimList.Add(userNameAsClaim);
             claimList.Add(idAsClaim);
+            claimList.Add(paymendInformationAsClaim);
 
             foreach (var role in await _userManager.GetRolesAsync(hasUser))
             {
@@ -125,14 +134,12 @@ namespace ApartmentManagementSystem.Business.Concrete
                 expires: DateTime.Now.AddHours(Convert.ToDouble(tokenExpireAsHour)),
                 signingCredentials: signingCredentials,
                 claims: claimList
-            //issuer: issuer
             );
 
             var responseDto = new TokenCreateResponseDto
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
             };
-
             return new SuccessDataResult<TokenCreateResponseDto>(responseDto);
         }
     }
