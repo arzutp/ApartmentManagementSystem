@@ -25,14 +25,6 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
             entity.UserId = userId;
             return await base.AddAsync(entity);
         }
-        //public async Task<PaymentInformation> AddAsync(PaymentInformation entity)
-        //{
-        //    var flat = await _context.Set<Flat>().FindAsync(entity.FlatId);
-        //    var userId = flat.UserId;
-        //    entity.UserId = userId;
-        //    await _context.AddAsync(entity);
-        //    return entity;
-        //}
 
         public async Task DeleteAsync(int id)
         {
@@ -131,18 +123,15 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
             return flatsWithTotalPrice;
         }
 
-        public async Task<List<PaymentGetByMonth>> GetByUserMonth(Guid userId)
+        public async Task<List<PaymentGetByUser>> GetByUser(Guid userId)
         {
-            var result = await _context.Set<PaymentInformation>().AsNoTracking().Include(p => p.InvoiceType).Include(P => P.Flats).ThenInclude(p => p.User).Where(x=>x.UserId == userId).Select(x => new PaymentGetByMonth
+            var result = await _context.Set<PaymentInformation>().AsNoTracking().Include(p => p.InvoiceType).Include(P => P.Flats).ThenInclude(p => p.User).Where(x=>x.UserId == userId).Select(x => new PaymentGetByUser
             {
                 IsPayed = x.IsPayed,
                 Price = x.Price,
                 Year = x.Year,
                 Month = x.Month,
                 InvoiceType = x.InvoiceType.Name,
-                Block = x.Flats.Block,
-                Floor = x.Flats.Floor,
-                FlatNumber = x.Flats.FlatNumber,
                 PhoneNumber = x.User.PhoneNumber,
                 Name = x.User.Name,
                 Surname = x.User.Surname
@@ -150,5 +139,7 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
             }).ToListAsync();
             return result;
         }
+
+        
     }
 }

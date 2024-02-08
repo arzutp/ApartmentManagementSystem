@@ -101,10 +101,10 @@ namespace ApartmentManagementSystem.Business.Concrete
             return new SuccessResult();
         }
 
-        public async Task<IDataResult<List<PaymentGetByMonth>>> GetByUserMonth(Guid userId)
+        public async Task<IDataResult<List<PaymentGetByUser>>> GetByUser(Guid userId)
         {
-            var payments = await _repository.GetByUserMonth(userId);
-            return new SuccessDataResult<List<PaymentGetByMonth>>(payments);
+            var payments = await _repository.GetByUser(userId);
+            return new SuccessDataResult<List<PaymentGetByUser>>(payments);
         }
     }
 }
