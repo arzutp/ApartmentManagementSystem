@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ApartmentManagementSystem.Business.Concrete
 {
@@ -55,6 +56,18 @@ namespace ApartmentManagementSystem.Business.Concrete
             var payments = await _repository.GetById(id);
             var result = _mapper.Map<PaymentInformationGetByIdDto>(payments);
             return new SuccessDataResult<PaymentInformationGetByIdDto>(result);
+        }
+
+        public async Task<IDataResult<List<PaymentGetByMonth>>> GetByMonth(int month)
+        {
+            var payments = await _repository.GetByMonth(month);
+            return new SuccessDataResult<List<PaymentGetByMonth>>(payments);
+        }
+
+        public async Task<IDataResult<List<PaymentGetByYear>>> GetByYear(int year)
+        {
+            var payments = await _repository.GetByYear(year);
+            return new SuccessDataResult<List<PaymentGetByYear>>(payments);
         }
 
         public async Task<IResult> Update(PaymentInformationUpdateDto entity)

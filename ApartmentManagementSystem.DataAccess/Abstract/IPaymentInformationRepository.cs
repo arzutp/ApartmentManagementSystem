@@ -1,5 +1,6 @@
 ﻿using ApartmentManagementSystem.Core.BaseEntity;
 using ApartmentManagementSystem.Core.DataAccess;
+using ApartmentManagementSystem.Entities.DTOs.PaymentInformationDtos;
 using ApartmentManagementSystem.Entities.Entity;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,7 @@ namespace ApartmentManagementSystem.DataAccess.Abstract
     {
         Task DeleteAsync(int id);
         Task<PaymentInformation> GetById(int id);
+        Task<List<PaymentGetByMonth>> GetByMonth(int month);
+        Task<List<PaymentGetByYear>> GetByYear(int year);
     }
 }

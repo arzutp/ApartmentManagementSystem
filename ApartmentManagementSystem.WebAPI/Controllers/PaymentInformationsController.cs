@@ -29,6 +29,20 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
             return Ok(_paymentInformationService.GetAll());
         }
 
+        [HttpGet("GetByMonth")]
+        public async Task<IActionResult> GetPaymentInformationByMonth(int month)
+        {
+            var results = await _paymentInformationService.GetByMonth(month);
+            return Ok(results);
+        }
+
+        [HttpGet("GetByYear")]
+        public async Task<IActionResult> GetPaymentInformationByYear(int year)
+        {
+            var results = await _paymentInformationService.GetByYear(year);
+            return Ok(results);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddPaymentInformation(PaymentInformationAddDto paymentInformationAddDto)
         {

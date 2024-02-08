@@ -18,5 +18,7 @@ namespace ApartmentManagementSystem.Business.Abstract
         Task<IResult> Update(PaymentInformationUpdateDto entity);
         Task<IResult> Delete(int id);
         Task<IDataResult<PaymentInformationGetByIdDto>> GetById(int id);
+        Task<IDataResult<List<PaymentGetByMonth>>> GetByMonth(int month);
+        Task<IDataResult<List<PaymentGetByYear>>> GetByYear(int year);
     }
 }
