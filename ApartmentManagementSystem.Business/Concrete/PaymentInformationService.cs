@@ -64,10 +64,22 @@ namespace ApartmentManagementSystem.Business.Concrete
             return new SuccessDataResult<List<PaymentGetByMonth>>(payments);
         }
 
+        public async Task<IDataResult<decimal>> GetByMonthTotal(int flatId, int month)
+        {
+            var result = await _repository.GetByMonthTotal(flatId, month);
+            return new SuccessDataResult<decimal>(result);
+        }
+
         public async Task<IDataResult<List<PaymentGetByYear>>> GetByYear(int year)
         {
             var payments = await _repository.GetByYear(year);
             return new SuccessDataResult<List<PaymentGetByYear>>(payments);
+        }
+
+        public async Task<IDataResult<decimal>> GetByYearTotal(int flatId, int year)
+        {
+            var result = await _repository.GetByYearTotal(flatId, year);
+            return new SuccessDataResult<decimal>(result);
         }
 
         public async Task<IResult> Update(PaymentInformationUpdateDto entity)

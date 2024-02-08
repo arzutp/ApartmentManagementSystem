@@ -50,8 +50,15 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
             return result;
         }
 
+        public async Task<decimal> GetByMonthTotal(int flatId,int month)
+        {
+            var result = await _context.Set<PaymentInformation>().Where(x=>x.FlatId == flatId && x.Month == month && x.IsPayed == false).SumAsync(x=>x.Price);
+            return result;
+        }
+
         public async Task<List<PaymentGetByYear>> GetByYear(int year)
         {
+
             var result = await _context.Set<PaymentInformation>().AsNoTracking().Where(x => x.Year == year).Include(p => p.InvoiceType).Include(P => P.Flats).ThenInclude(p => p.User).Select(x => new PaymentGetByYear
             {
                 IsPayed = x.IsPayed,
@@ -67,6 +74,12 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
                 Surname = x.User.Surname
 
             }).ToListAsync();
+            return result;
+        }
+
+        public async Task<decimal> GetByYearTotal(int flatId, int year)
+        {
+            var result = await _context.Set<PaymentInformation>().Where(x => x.FlatId == flatId && x.Year == year && x.IsPayed == false).SumAsync(x => x.Price);
             return result;
         }
     }

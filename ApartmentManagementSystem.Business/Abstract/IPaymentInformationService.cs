@@ -19,6 +19,8 @@ namespace ApartmentManagementSystem.Business.Abstract
         Task<IResult> Delete(int id);
         Task<IDataResult<PaymentInformationGetByIdDto>> GetById(int id);
         Task<IDataResult<List<PaymentGetByMonth>>> GetByMonth(int month);
+        Task<IDataResult<decimal>> GetByMonthTotal(int flatId, int month);
         Task<IDataResult<List<PaymentGetByYear>>> GetByYear(int year);
+        Task<IDataResult<decimal>> GetByYearTotal(int flatId, int year);
     }
 }

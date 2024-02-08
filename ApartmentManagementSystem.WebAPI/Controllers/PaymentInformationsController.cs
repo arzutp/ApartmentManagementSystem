@@ -36,11 +36,25 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
             return Ok(results);
         }
 
+        [HttpGet("TotalMonthlyUnpaid")]
+        public async Task<IActionResult> GetPaymentInformationByMonthTotal(int flatId,int month)
+        {
+            var results = await _paymentInformationService.GetByMonthTotal(flatId,month);
+            return Ok(results.Data);
+        }
+
         [HttpGet("GetByYear")]
         public async Task<IActionResult> GetPaymentInformationByYear(int year)
         {
             var results = await _paymentInformationService.GetByYear(year);
             return Ok(results);
+        }
+
+        [HttpGet("TotalYearlyUnpaid")]
+        public async Task<IActionResult> GetPaymentInformationByYeayTotal(int flatId, int year)
+        {
+            var results = await _paymentInformationService.GetByYearTotal(flatId, year);
+            return Ok(results.Data);
         }
 
         [HttpPost]
