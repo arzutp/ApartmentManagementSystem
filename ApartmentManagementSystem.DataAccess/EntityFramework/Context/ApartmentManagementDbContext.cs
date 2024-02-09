@@ -41,6 +41,12 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Context
                     Id = adminRoleId,
                     Name = "Admin",
                     NormalizedName = "ADMIN"
+                },
+                new Role
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Kiracı",
+                    NormalizedName = "KIRACI"
                 }
             );
 

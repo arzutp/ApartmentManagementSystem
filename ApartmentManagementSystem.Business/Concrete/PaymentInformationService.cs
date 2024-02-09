@@ -132,5 +132,6 @@ namespace ApartmentManagementSystem.Business.Concrete
             await _repository.UserPayInvoice(entity, paymendType, userId);
             return new SuccessResult();
         }
+
     }
 }

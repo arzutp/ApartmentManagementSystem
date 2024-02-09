@@ -20,16 +20,18 @@ namespace ApartmentManagementSystem.Business.Concrete
 {
     public class UserService : IUserService
     {
+        private readonly IRoleService _roleService;
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
-        public UserService(IUserRepository userRepository, IMapper mapper, UserManager<User> userManager, RoleManager<Role> roleManager)
+        public UserService(IUserRepository userRepository, IMapper mapper, UserManager<User> userManager, RoleManager<Role> roleManager, IRoleService roleService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _userManager = userManager;
             _roleManager = roleManager;
+            _roleService = roleService;
         }
 
         public async Task<IDataResult<Guid>> Add(UserAddDto user)
@@ -37,7 +39,11 @@ namespace ApartmentManagementSystem.Business.Concrete
             var userDto = _mapper.Map<User>(user);
             
             var result = await _userManager.CreateAsync(userDto, user.Password);
-            
+
+            var appRole = _roleService.GetByTenant();
+
+            var roleAssignResult = await _userManager.AddToRoleAsync(userDto, appRole.Result.Data.Name);
+
             if (!result.Succeeded)
             {
                 var errorList = result.Errors.Select(x => x.Description).ToList();
@@ -51,13 +57,6 @@ namespace ApartmentManagementSystem.Business.Concrete
             }
             return new SuccessDataResult<Guid>(user.UserName);
         }
-
-        //public async Task<IResult> AddRangeAsync(List<UserAddDto> datas)
-        //{
-        //    var dto = _mapper.Map<List<User>>(datas);
-        //    await _userRepository.AddRangeAsync(dto);
-        //    return new SuccessResult();
-        //}
 
         public async Task<IResult> Delete(Guid id)
         {

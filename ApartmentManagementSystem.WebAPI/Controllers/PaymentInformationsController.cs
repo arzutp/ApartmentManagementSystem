@@ -162,9 +162,9 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (userId == null)
                 return BadRequest();
-            await _paymentInformationService.UserPayInvoice(id, paymentType,Guid.Parse(userId));
+            var result = await _paymentInformationService.UserPayInvoice(id, paymentType, Guid.Parse(userId));
             await _unitOfWork.CommitAsync();
-            return NoContent();
+            return Ok(result.Message);
         }
     }
 }
