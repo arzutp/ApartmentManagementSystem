@@ -125,46 +125,6 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
             return Ok(results);
         }
 
-        [HttpGet("ForUser")]
-        public async Task<IActionResult> GetByForUser()
-        {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userId == null)
-                return BadRequest();
-            var results = await _paymentInformationService.GetByUser(Guid.Parse(userId));
-            
-            return Ok(results);
-        }
-
-        [HttpGet("MonthlyForUser")]
-        public async Task<IActionResult> GetByMonthForUser(int month)
-        {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userId == null)
-                return BadRequest();
-            var results = await _paymentInformationService.GetByMonthForUser(month, Guid.Parse(userId));
-            return Ok(results);
-        }
-
-        [HttpGet("YearlyForUser")]
-        public async Task<IActionResult> GetByYearForUser(int month)
-        {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userId == null)
-                return BadRequest();
-            var results = await _paymentInformationService.GetByYearForUser(month, Guid.Parse(userId));
-            return Ok(results);
-        }
-
-        [HttpGet("UserPayInvoice")]
-        public async Task<IActionResult> UserPayInvoice(int id, string paymentType)
-        {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            if (userId == null)
-                return BadRequest();
-            var result = await _paymentInformationService.UserPayInvoice(id, paymentType, Guid.Parse(userId));
-            await _unitOfWork.CommitAsync();
-            return Ok(result.Message);
-        }
+        
     }
 }
