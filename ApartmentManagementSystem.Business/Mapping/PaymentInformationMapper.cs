@@ -14,6 +14,7 @@ namespace ApartmentManagementSystem.Business.Mapping
         public PaymentInformationMapper() { 
             CreateMap<PaymentInformation, PaymentInformationAddDto>().ReverseMap();
             CreateMap<PaymentInformation, PaymentInformationUpdateDto>().ReverseMap();
+            CreateMap<PaymentInformation, PaymentForUserPayedDto>().ReverseMap();
             CreateMap<PaymentInformation, PaymentInformationGetAllDto>();
             CreateMap<PaymentInformation, PaymentInformationGetByIdDto>();
         }

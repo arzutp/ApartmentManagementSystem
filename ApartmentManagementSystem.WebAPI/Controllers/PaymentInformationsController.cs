@@ -155,5 +155,16 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
             var results = await _paymentInformationService.GetByYearForUser(month, Guid.Parse(userId));
             return Ok(results);
         }
+
+        [HttpGet("UserPayInvoice")]
+        public async Task<IActionResult> UserPayInvoice(int id, string paymentType)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+                return BadRequest();
+            await _paymentInformationService.UserPayInvoice(id, paymentType,Guid.Parse(userId));
+            await _unitOfWork.CommitAsync();
+            return NoContent();
+        }
     }
 }

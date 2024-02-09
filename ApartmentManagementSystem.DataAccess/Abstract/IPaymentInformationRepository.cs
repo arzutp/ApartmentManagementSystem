@@ -25,5 +25,6 @@ namespace ApartmentManagementSystem.DataAccess.Abstract
         Task<List<PaymentGetByBuilding>> GetByBuildingNumber(int buildingNumber);
         Task<List<PaymentGetByMonth>> GetByMonthForUser(int month, Guid userId);
         Task<List<PaymentGetByYear>> GetByYearForUser(int year, Guid userId);
+        Task UserPayInvoice(int id, string paymendType, Guid userId);
     }
 }

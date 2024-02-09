@@ -2,6 +2,7 @@
 using ApartmentManagementSystem.Entities.DTOs.FlatDtos;
 using ApartmentManagementSystem.Entities.DTOs.InvoiceTypeDtos;
 using ApartmentManagementSystem.Entities.DTOs.PaymentInformationDtos;
+using ApartmentManagementSystem.Entities.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,5 +29,6 @@ namespace ApartmentManagementSystem.Business.Abstract
         Task<IDataResult<List<PaymentGetByBuilding>>> GetByBuildingNumber(int buildingNumber);
         Task<IDataResult<List<PaymentGetByMonth>>> GetByMonthForUser(int month, Guid userId);
         Task<IDataResult<List<PaymentGetByYear>>> GetByYearForUser(int year, Guid userId);
+        Task<IResult> UserPayInvoice(int entity, string paymendType,Guid userId);
     }
 }

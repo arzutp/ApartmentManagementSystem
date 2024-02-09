@@ -1,4 +1,5 @@
 ﻿using ApartmentManagementSystem.Business.Abstract;
+using ApartmentManagementSystem.Core.BaseEntity;
 using ApartmentManagementSystem.Core.Utilities;
 using ApartmentManagementSystem.DataAccess.Abstract;
 using ApartmentManagementSystem.Entities.DTOs.PaymentInformationDtos;
@@ -124,6 +125,12 @@ namespace ApartmentManagementSystem.Business.Concrete
         {
             var results = await _repository.GetByYearForUser(year, userId);
             return new SuccessDataResult<List<PaymentGetByYear>>(results);
+        }
+
+        public async Task<IResult> UserPayInvoice(int entity, string paymendType, Guid userId)
+        {
+            await _repository.UserPayInvoice(entity, paymendType, userId);
+            return new SuccessResult();
         }
     }
 }

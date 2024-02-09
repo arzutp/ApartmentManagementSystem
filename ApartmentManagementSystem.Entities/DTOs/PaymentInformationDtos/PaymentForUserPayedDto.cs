@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagementSystem.Entities.DTOs.PaymentInformationDtos
 {
-    public class PaymentInformationUpdateDto : PaymentInformationBaseWriteDto
+    public class PaymentForUserPayedDto : PaymentInformationBaseWriteDto
     {
+        //public DateTime? DateOfPayment { get; set; }
         public int Id { get; set; }
+        public string? PaymentType { get; set; }
     }
 }

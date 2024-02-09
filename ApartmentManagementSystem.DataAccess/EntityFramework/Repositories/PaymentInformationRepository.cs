@@ -197,5 +197,14 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
             }).ToListAsync();
             return result;
         }
+
+        public async Task UserPayInvoice(int id, string paymendType, Guid userId)
+        {   
+            var paymentInformation = await GetById(id);
+            paymentInformation.DateOfPayment = DateTime.Now;
+            paymentInformation.IsPayed = true;
+            paymentInformation.PaymentType = paymendType;
+            _context.Update(paymentInformation);    
+        }
     }
 }
