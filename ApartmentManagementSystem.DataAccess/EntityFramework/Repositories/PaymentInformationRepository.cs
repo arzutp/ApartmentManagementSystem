@@ -231,16 +231,23 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
             return result;
         }
 
-        public async Task UserPayInvoice(int id, string paymendType, Guid userId)
+        public async Task<decimal> UserPayInvoice(int id, string paymendType, Guid userId)
         {   
             var paymentInformation = await GetById(id);
             paymentInformation.DateOfPayment = DateTime.Now;
             paymentInformation.IsPayed = true;
             paymentInformation.PaymentType = paymendType;
+            if(paymentInformation.Month < DateTime.Now.Month)
+            {
+                paymentInformation.Price = CalculateInvoicePriceExtension.CalculateInvoicePrice(paymentInformation.Price, 10);
+            }
             RegularlyPayUserExtensions.AddRegularlyUser(_context,userId, paymentInformation.InvoiceTypeId, paymentInformation.Month, paymentInformation.DateOfPayment.Value.Year);
-            _context.Update(paymentInformation);    
+            _context.Update(paymentInformation);
+
+            return paymentInformation.Price;
         }
 
         
+
     }
 }

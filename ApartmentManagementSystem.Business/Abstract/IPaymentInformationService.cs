@@ -29,6 +29,6 @@ namespace ApartmentManagementSystem.Business.Abstract
         Task<IDataResult<List<PaymentGetByBuilding>>> GetByBuildingNumber(int buildingNumber);
         Task<IDataResult<List<PaymentGetByMonth>>> GetByMonthForUser(int month, Guid userId);
         Task<IDataResult<List<PaymentGetByYear>>> GetByYearForUser(int year, Guid userId);
-        Task<IResult> UserPayInvoice(int entity, string paymendType,Guid userId);
+        Task<IDataResult<decimal>> UserPayInvoice(int entity, string paymendType,Guid userId);
     }
 }

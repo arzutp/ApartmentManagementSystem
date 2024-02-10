@@ -150,10 +150,10 @@ namespace ApartmentManagementSystem.Business.Concrete
             return new SuccessDataResult<List<PaymentGetByYear>>(results);
         }
 
-        public async Task<IResult> UserPayInvoice(int entity, string paymendType, Guid userId)
+        public async Task<IDataResult<decimal>> UserPayInvoice(int entity, string paymendType, Guid userId)
         {
-            await _repository.UserPayInvoice(entity, paymendType, userId);
-            return new SuccessResult();
+            var price = await _repository.UserPayInvoice(entity, paymendType, userId);
+            return new SuccessDataResult<decimal>(price, "ödeme yaptınız");
         }
 
     }

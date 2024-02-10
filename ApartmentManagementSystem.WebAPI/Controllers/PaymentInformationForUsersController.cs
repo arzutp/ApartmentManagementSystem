@@ -60,7 +60,7 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
                 return BadRequest();
             var result = await _paymentInformationService.UserPayInvoice(id, paymentType, Guid.Parse(userId));
             await _unitOfWork.CommitAsync();
-            return Ok(result.Message);
+            return Ok(result);
         }
     }
 }
