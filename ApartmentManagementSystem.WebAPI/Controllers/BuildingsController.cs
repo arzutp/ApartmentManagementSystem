@@ -22,7 +22,7 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllInvoiceTypes() => Ok(_buildingService.GetAll());
+        public IActionResult GetAllBuildings() => Ok(_buildingService.GetAll());
 
 
         [HttpPost]

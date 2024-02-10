@@ -35,6 +35,9 @@ public static class DIContainerExtension
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<IRoleService, RoleService>();
 
+        services.AddScoped<IBuildingInvoiceRepository, BuildingInvoiceRepository>();
+        services.AddScoped<IBuildingInvoiceService, BuildingInvoiceService>();
+
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IJwtTokenCreate, JwtTokenCreate>();

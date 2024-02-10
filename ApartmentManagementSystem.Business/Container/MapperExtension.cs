@@ -13,6 +13,5 @@ public static class MapperExtension
     public static void MapperExt(this IServiceCollection services)
     {
         services.AddAutoMapper(typeof(UserMapper));
-        //services.AddAutoMapper(typeof(FlatMapper));
     }
 }

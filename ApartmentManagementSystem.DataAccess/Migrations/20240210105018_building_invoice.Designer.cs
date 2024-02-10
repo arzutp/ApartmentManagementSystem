@@ -4,6 +4,7 @@ using ApartmentManagementSystem.DataAccess.EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApartmentManagementSystem.DataAccess.Migrations
 {
     [DbContext(typeof(ApartmentManagementDbContext))]
-    partial class ApartmentManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240210105018_building_invoice")]
+    partial class building_invoice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +45,7 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.ToTable("Buildings");
                 });
 
-            modelBuilder.Entity("ApartmentManagementSystem.Entities.Entity.BuildingInvoice", b =>
+            modelBuilder.Entity("ApartmentManagementSystem.Entities.Entity.BuildingPayment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,13 +59,7 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.Property<int>("InvoiceTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Month")
-                        .HasColumnType("int");
-
                     b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -71,7 +68,7 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
 
                     b.HasIndex("InvoiceTypeId");
 
-                    b.ToTable("BuildingInvoices");
+                    b.ToTable("BuildingPayment");
                 });
 
             modelBuilder.Entity("ApartmentManagementSystem.Entities.Entity.Flat", b =>
@@ -209,13 +206,13 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6947bdb8-c3ac-4c17-b973-0dea5914bf3c"),
+                            Id = new Guid("6b277ecc-be60-4e91-b05a-3921111c2b64"),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("5e8c7162-5d67-4ad3-9616-c7b0d94cbc57"),
+                            Id = new Guid("5f458523-bc37-4fd9-837e-43c82b77633e"),
                             Name = "Kiracı",
                             NormalizedName = "KIRACI"
                         });
@@ -301,9 +298,9 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("143fa954-1964-404b-b1ae-52536f240c95"),
+                            Id = new Guid("8683776b-f055-4420-99eb-770b3b273c3f"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e104340b-d224-4cb7-9432-17c8d28980eb",
+                            ConcurrencyStamp = "3be1ee34-a90a-45c8-becb-a0e70840fa21",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             IdentificationNumber = "11111111111",
@@ -311,7 +308,7 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN@ADMIN.com",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEO8eo4jZ2CAFKkPxejDPXuQQ8YaT3phIoxtet3Aw1FNCJ+ZnzqcGhxT2U5w5Fo+B0A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECT0rx98Coh2CU111tHBUxCLPdPr871GeNSXv86PXoeq2ZIPdiIo9Ohxah4npOLrKw==",
                             PhoneNumberConfirmed = false,
                             Surname = "ADMIN",
                             TwoFactorEnabled = false,
@@ -405,8 +402,8 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("143fa954-1964-404b-b1ae-52536f240c95"),
-                            RoleId = new Guid("6947bdb8-c3ac-4c17-b973-0dea5914bf3c")
+                            UserId = new Guid("8683776b-f055-4420-99eb-770b3b273c3f"),
+                            RoleId = new Guid("6b277ecc-be60-4e91-b05a-3921111c2b64")
                         });
                 });
 
@@ -429,7 +426,7 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ApartmentManagementSystem.Entities.Entity.BuildingInvoice", b =>
+            modelBuilder.Entity("ApartmentManagementSystem.Entities.Entity.BuildingPayment", b =>
                 {
                     b.HasOne("ApartmentManagementSystem.Entities.Entity.Building", "Buildings")
                         .WithMany("BuildingPayments")

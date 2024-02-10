@@ -13,5 +13,6 @@ namespace ApartmentManagementSystem.Entities.Entity
         public string BuildingName { get; set; }
         public int BuildingNumber { get; set; }
         public List<Flat> Flats { get; set; }
+        public List<BuildingInvoice> BuildingPayments { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using ApartmentManagementSystem.DataAccess.EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApartmentManagementSystem.DataAccess.Migrations
 {
     [DbContext(typeof(ApartmentManagementDbContext))]
-    partial class ApartmentManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240210105853_buildingPaymentNameChange")]
+    partial class buildingPaymentNameChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,13 +59,7 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.Property<int>("InvoiceTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Month")
-                        .HasColumnType("int");
-
                     b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -209,13 +206,13 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6947bdb8-c3ac-4c17-b973-0dea5914bf3c"),
+                            Id = new Guid("1285726c-971f-4708-8adc-69ab2933782f"),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("5e8c7162-5d67-4ad3-9616-c7b0d94cbc57"),
+                            Id = new Guid("9a488ff6-5f5c-44c9-b9ff-be14a63ddc3a"),
                             Name = "Kiracı",
                             NormalizedName = "KIRACI"
                         });
@@ -301,9 +298,9 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("143fa954-1964-404b-b1ae-52536f240c95"),
+                            Id = new Guid("7ece46d5-413c-4eb2-8291-5c26e6c1a752"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e104340b-d224-4cb7-9432-17c8d28980eb",
+                            ConcurrencyStamp = "380f3a84-f1a5-465b-85aa-70fb11717531",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             IdentificationNumber = "11111111111",
@@ -311,7 +308,7 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN@ADMIN.com",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEO8eo4jZ2CAFKkPxejDPXuQQ8YaT3phIoxtet3Aw1FNCJ+ZnzqcGhxT2U5w5Fo+B0A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBrXcHhkpOg2G7qMrblGtoD2uvtmehZCxPf2AunSszutO2UKIPmH92s5ZZmrJTSCRg==",
                             PhoneNumberConfirmed = false,
                             Surname = "ADMIN",
                             TwoFactorEnabled = false,
@@ -405,8 +402,8 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("143fa954-1964-404b-b1ae-52536f240c95"),
-                            RoleId = new Guid("6947bdb8-c3ac-4c17-b973-0dea5914bf3c")
+                            UserId = new Guid("7ece46d5-413c-4eb2-8291-5c26e6c1a752"),
+                            RoleId = new Guid("1285726c-971f-4708-8adc-69ab2933782f")
                         });
                 });
 

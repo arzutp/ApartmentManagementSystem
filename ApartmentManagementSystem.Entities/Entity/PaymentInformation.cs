@@ -22,16 +22,16 @@ namespace ApartmentManagementSystem.Entities.Entity
 
         //fatura türü
         public int? InvoiceTypeId { get; set; }
-        public InvoiceType InvoiceType { get; set; }
+        public InvoiceType? InvoiceType { get; set; }
 
         //ödeyen kullanıcı
         [ForeignKey("User")]
         public Guid? UserId { get; set; }
-        public User User { get; set; }
+        public User? User { get; set; }
 
         //daire
         public int FlatId { get; set; }
-        public Flat Flats { get; set; }
+        public Flat? Flats { get; set; }
 
     }
 }

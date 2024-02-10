@@ -13,6 +13,8 @@ namespace ApartmentManagementSystem.Entities.Entity
         public int Id { get; set; }
         public string Name { get; set; } = default!;
 
+
+        public List<BuildingInvoice> BuildingPayments { get; set; }
         public List<PaymentInformation> PaymentInformations { get; set; }
     } 
 }

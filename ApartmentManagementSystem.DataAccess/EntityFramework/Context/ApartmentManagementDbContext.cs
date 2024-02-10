@@ -22,6 +22,7 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Context
         public DbSet<Flat> Flats { get; set; }
         public DbSet<InvoiceType> InvoiceTypes { get; set; }
         public DbSet<PaymentInformation> PaymentInformations { get; set; }
+        public DbSet<BuildingInvoice> BuildingInvoices { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
