@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApartmentManagementSystem.WebAPI.Controllers
 {
+    //[Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class BuildingsController : ControllerBase

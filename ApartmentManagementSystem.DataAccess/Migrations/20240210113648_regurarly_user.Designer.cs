@@ -4,6 +4,7 @@ using ApartmentManagementSystem.DataAccess.EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApartmentManagementSystem.DataAccess.Migrations
 {
     [DbContext(typeof(ApartmentManagementDbContext))]
-    partial class ApartmentManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240210113648_regurarly_user")]
+    partial class regurarly_user
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -196,9 +199,6 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("InvoiceTypeId");
@@ -238,13 +238,13 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("45fb0411-3704-47bc-aae8-a232adffc447"),
+                            Id = new Guid("3007214e-f668-46b6-a608-cbb37cdd1ddc"),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("59684402-28a9-480c-a169-8b441aaa71cf"),
+                            Id = new Guid("d261700f-6521-40db-89ae-521bad68f58c"),
                             Name = "Kiracı",
                             NormalizedName = "KIRACI"
                         });
@@ -330,9 +330,9 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("70654f27-971e-42be-8873-7043acf23849"),
+                            Id = new Guid("c1cb6011-b754-4147-a46a-a606ddaabea9"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9736b7ae-2027-4f1a-ac72-c703948ee19d",
+                            ConcurrencyStamp = "fba8e4da-0c2e-462e-845d-ce6855325493",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             IdentificationNumber = "11111111111",
@@ -340,7 +340,7 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN@ADMIN.com",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAj+wqU0PF4m1WT+oH5ktLXf8ystRIkuqHEaVaMbrEa85VIE9r7xvRAX19SOJmZu9A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPX2m57Ihd7Dv7EC8l6JxQgbQBdqzlbF7orzlB0s7TaogPAZDBdSq4cWrtCdroYAEA==",
                             PhoneNumberConfirmed = false,
                             Surname = "ADMIN",
                             TwoFactorEnabled = false,
@@ -434,8 +434,8 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("70654f27-971e-42be-8873-7043acf23849"),
-                            RoleId = new Guid("45fb0411-3704-47bc-aae8-a232adffc447")
+                            UserId = new Guid("c1cb6011-b754-4147-a46a-a606ddaabea9"),
+                            RoleId = new Guid("3007214e-f668-46b6-a608-cbb37cdd1ddc")
                         });
                 });
 

@@ -1,4 +1,4 @@
-﻿using ApartmentManagementSystem.Entities.DTOs.RoleDto;
+﻿using ApartmentManagementSystem.Entities.DTOs.RegularlyPayUserDto;
 using ApartmentManagementSystem.Entities.Entity;
 using AutoMapper;
 using System;
@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace ApartmentManagementSystem.Business.Mapping
 {
-    public class RoleMapper : Profile
+    public class RegularlyPayUserMapper : Profile
     {
-        public RoleMapper() { 
-            CreateMap<Role, RoleGetByNameDto>();
+        public RegularlyPayUserMapper()
+        {
+            CreateMap<RegularlyPayUser, RegularlyPayUserIndexDto>();
         }
     }
 }

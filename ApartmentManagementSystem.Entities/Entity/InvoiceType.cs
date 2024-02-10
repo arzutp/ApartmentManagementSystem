@@ -16,5 +16,6 @@ namespace ApartmentManagementSystem.Entities.Entity
 
         public List<BuildingInvoice> BuildingPayments { get; set; }
         public List<PaymentInformation> PaymentInformations { get; set; }
+        public List<RegularlyPayUser> RegularlyPayUsers { get; set; }
     } 
 }

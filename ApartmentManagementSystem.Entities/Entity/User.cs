@@ -16,5 +16,6 @@ namespace ApartmentManagementSystem.Entities.Entity
         public string Surname { get; set; } = default!;      
         public Flat Flat { get; set; }
         public List<PaymentInformation> PaymentInformations { get; set; }
+        public List<RegularlyPayUser> RegularlyPayUsers { get; set; }
     }
 }

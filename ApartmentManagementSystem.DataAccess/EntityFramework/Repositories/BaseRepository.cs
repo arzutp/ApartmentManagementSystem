@@ -30,7 +30,7 @@ public class BaseRepository<T> : IRepository<T>
         return entity;
     }
 
-    public async Task<bool> AddRangeAsync(List<T> datas)
+    public virtual async Task<bool> AddRangeAsync(List<T> datas)
     {
         await _context.Set<T>().AddRangeAsync(datas);
         return true;
