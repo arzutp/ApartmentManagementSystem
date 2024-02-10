@@ -22,11 +22,24 @@ namespace ApartmentManagementSystem.Business.Concrete
             _repository = repository;
         }
 
+        public IDataResult<List<RegularlyPayUserGetByYearDto>> RegularlyPayUserGetByYear(int year, string name, int index)
+        {
+            var dto = _repository.RegularlyPayUserGetByYear(year, name, index);
+            var results = _mapper.Map<List<RegularlyPayUserGetByYearDto>>(dto);
+            return new SuccessDataResult<List<RegularlyPayUserGetByYearDto>>(results);
+        }
+
         public IDataResult<List<RegularlyPayUserIndexDto>> RegularlyPayUserWithIndex(int index)
         {
             var dto = _repository.GetRegularlyPayUser(index);
             var results = _mapper.Map<List<RegularlyPayUserIndexDto>>(dto);
             return new SuccessDataResult<List<RegularlyPayUserIndexDto>>(results);
+        }
+
+        public bool IsDiscountForUser(Guid? userId, int year, int? invoiceTypeId, int index)
+        {
+            var result = _repository.IsDiscountForUser(userId, year, invoiceTypeId, index);
+            return result;
         }
     }
 }

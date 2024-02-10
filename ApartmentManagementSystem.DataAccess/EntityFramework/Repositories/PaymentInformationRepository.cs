@@ -20,27 +20,6 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
         {
         }
 
-        public override async Task<PaymentInformation> AddAsync(PaymentInformation entity)
-        {
-            var flat = await _context.Set<Flat>().FindAsync(entity.FlatId);
-            var userId = flat!.UserId;
-            entity.UserId = userId;
-            return await base.AddAsync(entity);
-        }
-
-        public override async Task<bool> AddRangeAsync(List<PaymentInformation> datas)
-        {
-            //List<PaymentInformation> paymentInformations = new List<PaymentInformation>();
-
-            foreach (var data in datas)
-            {
-                var flat = await _context.Set<Flat>().FindAsync(data.FlatId);
-                var userId = flat!.UserId;
-                data.UserId = userId;
-            } 
-            return await base.AddRangeAsync(datas);
-        }
-
         public async Task DeleteAsync(int id)
         {
             var result = await _context.Set<PaymentInformation>().FirstOrDefaultAsync(x => x.Id.Equals(id));

@@ -21,5 +21,12 @@ namespace ApartmentManagementSystem.WebAPI.Controllers
             var results = _userService.RegularlyPayUserWithIndex(index);
             return Ok(results);
         }
+
+        [HttpGet("WithYear")]
+        public IActionResult RegularlyPayUserGetByYear(int year, string name, int index)
+        {
+            var results = _userService.RegularlyPayUserGetByYear(year,name,index);
+            return Ok(results);
+        }
     }
 }

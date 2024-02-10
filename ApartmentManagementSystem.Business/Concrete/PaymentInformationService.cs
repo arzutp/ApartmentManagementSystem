@@ -1,13 +1,16 @@
 ﻿using ApartmentManagementSystem.Business.Abstract;
+using ApartmentManagementSystem.Business.Extensions;
 using ApartmentManagementSystem.Core.BaseEntity;
 using ApartmentManagementSystem.Core.Utilities;
 using ApartmentManagementSystem.DataAccess.Abstract;
 using ApartmentManagementSystem.Entities.DTOs.PaymentInformationDtos;
 using ApartmentManagementSystem.Entities.Entity;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,23 +22,43 @@ namespace ApartmentManagementSystem.Business.Concrete
     {
         private readonly IPaymentInformationRepository _repository;
         private readonly IMapper _mapper;
-
-        public PaymentInformationService(IPaymentInformationRepository repository, IMapper mapper)
+        private readonly IRegularlyPayUserService _regularlyPayUserService;
+        private readonly IFlatService _flatService;
+        public PaymentInformationService(IPaymentInformationRepository repository, IMapper mapper, IFlatService flatService, IRegularlyPayUserService regularlyPayUserService)
         {
             _repository = repository;
             _mapper = mapper;
+            _flatService = flatService;
+            _regularlyPayUserService = regularlyPayUserService;
         }
-        
+
         public async Task<IResult> Add(PaymentInformationAddDto entity)
         {
+            var flat = await _flatService.GetById(entity.FlatId);
+            var userId = flat!.Data.UserId;
             var dto = _mapper.Map<PaymentInformation>(entity);
+            dto.UserId = userId;
+            if (_regularlyPayUserService.IsDiscountForUser(dto?.UserId, dto!.Year - 1, dto.InvoiceTypeId, 12))
+            {
+                dto.Price = DiscountExtension.CalculateInvoicePrice(dto.Price, 10);
+            }
             await _repository.AddAsync(dto);
             return new SuccessResult();
         }
 
         public async Task<IResult> AddRangeAsync(List<PaymentInformationAddDto> datas)
-        {
+        {   
             var dto = _mapper.Map<List<PaymentInformation>>(datas);
+            foreach (var data in dto)
+            {
+                var flat = await _flatService.GetById(data.FlatId);
+                var userId = flat!.Data.UserId;
+                data.UserId = userId;
+                if (_regularlyPayUserService.IsDiscountForUser(data?.UserId, data!.Year - 1, data.InvoiceTypeId, 12))
+                {
+                    data.Price = DiscountExtension.CalculateInvoicePrice(data.Price, 10);
+                }
+            }
             await _repository.AddRangeAsync(dto);
             return new SuccessResult();
         }

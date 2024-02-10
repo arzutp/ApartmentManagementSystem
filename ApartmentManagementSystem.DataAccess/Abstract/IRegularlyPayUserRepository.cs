@@ -12,5 +12,8 @@ namespace ApartmentManagementSystem.DataAccess.Abstract
     public interface IRegularlyPayUserRepository : IRepository<RegularlyPayUser>
     {
         List<RegularlyPayUserIndexDto> GetRegularlyPayUser(int index);
+        List<RegularlyPayUser> RegularlyPayUserGetByYear(int year, string name, int index);
+        RegularlyPayUser GetByInvoiceName(string invoiceName);
+        bool IsDiscountForUser(Guid? userId, int year, int? invoiceTypeId, int index);
     }
 }

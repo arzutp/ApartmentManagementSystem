@@ -12,7 +12,6 @@ namespace ApartmentManagementSystem.DataAccess.Abstract
 {
     public interface IPaymentInformationRepository: IRepository<PaymentInformation>
     {
-        Task<PaymentInformation> AddAsync(PaymentInformation entity);
         Task DeleteAsync(int id);
         Task<PaymentInformation> GetById(int id);
         Task<List<PaymentGetByMonth>> GetByMonth(int month);

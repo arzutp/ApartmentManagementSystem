@@ -17,6 +17,12 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
         {
         }
 
+        public RegularlyPayUser GetByInvoiceName(string invoiceName)
+        {
+            var result = _context.Set<RegularlyPayUser>().Include(x=>x.InvoiceType).FirstOrDefault(x=>x.InvoiceType.Name == invoiceName);
+            return result;
+        }
+
         public List<RegularlyPayUserIndexDto> GetRegularlyPayUser(int index)
         {
             var results =  _context.Set<RegularlyPayUser>().
@@ -29,6 +35,25 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
                     Index = index
                 }).ToList();
             return results;
+        }
+
+        public List<RegularlyPayUser> RegularlyPayUserGetByYear(int year, string name, int index)
+        {
+            var invoiceTypeName = GetByInvoiceName(name);
+            var result = _context.Set<RegularlyPayUser>().Where(x => x.Year == year && x.InvoiceTypeId == invoiceTypeName.InvoiceTypeId && x.Index == index).ToList();
+            return result;
+        }
+
+        public bool IsDiscountForUser(Guid? userId, int year, int? invoiceTypeId, int index)
+        {
+            var name = GetByInvoiceName("Aidat");
+            if (name.InvoiceTypeId != invoiceTypeId)
+            {
+                return false;
+            }
+            var datas = RegularlyPayUserGetByYear(year, "Aidat", index);
+            var result = datas.Any(x => x.UserId == userId);
+            return result;
         }
     }
 }

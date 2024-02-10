@@ -14,6 +14,7 @@ namespace ApartmentManagementSystem.Business.Mapping
         public RegularlyPayUserMapper()
         {
             CreateMap<RegularlyPayUser, RegularlyPayUserIndexDto>();
+            CreateMap<RegularlyPayUser, RegularlyPayUserGetByYearDto>();
         }
     }
 }

@@ -10,6 +10,7 @@ namespace ApartmentManagementSystem.Entities.DTOs.RegularlyPayUserDto
     {
         public int Id { get; set; }
         public int Index { get; set; }
+        public int Year { get; set; }
         public Guid UserId { get; set; }
         public int InvoiceTypeId { get; set; }
     }
