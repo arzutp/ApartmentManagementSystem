@@ -24,7 +24,7 @@ builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<ApartmentMan
 
 builder.Services.DIContainerExt();
 builder.Services.MapperExt();
-
+builder.Services.AddMemoryCache();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

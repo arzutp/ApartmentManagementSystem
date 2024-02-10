@@ -4,6 +4,7 @@ using ApartmentManagementSystem.DataAccess.EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApartmentManagementSystem.DataAccess.Migrations
 {
     [DbContext(typeof(ApartmentManagementDbContext))]
-    partial class ApartmentManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240210205830_update_delete")]
+    partial class update_delete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,13 +241,13 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c484027e-f680-4662-8997-99d15fd1ee79"),
+                            Id = new Guid("461689a4-1f27-4cc3-8bcb-58693b67c57b"),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("864fa6ef-4f67-40c9-b8a2-0c8cd7607e0a"),
+                            Id = new Guid("3961f2c7-1066-4ef5-a1d0-ab0a63771a19"),
                             Name = "Kiracı",
                             NormalizedName = "KIRACI"
                         });
@@ -330,9 +333,9 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("e3fc175b-9e73-4de1-bf14-16ca3ad5ec93"),
+                            Id = new Guid("4e5b08ad-e119-4346-95ff-578b3f0e13b5"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "69baced5-2921-470d-83dc-12d61aa76e4a",
+                            ConcurrencyStamp = "9a27adca-fe9b-4b7d-a628-1b2461ddba84",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             IdentificationNumber = "11111111111",
@@ -340,7 +343,7 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                             Name = "Admin",
                             NormalizedEmail = "ADMIN@ADMIN.com",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAwTF8s08f2qToi977fjKztMxVxpLI+Mln0SwIqaz8YohBJchGea60SyCMOBch5uIg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEO3PxGrZxnnPJO4AiASYFfGvFlA5Toho6g56OVfGQHD8rf6QWgCGr6QqF2ZEO0olqA==",
                             PhoneNumberConfirmed = false,
                             Surname = "ADMIN",
                             TwoFactorEnabled = false,
@@ -434,8 +437,8 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("e3fc175b-9e73-4de1-bf14-16ca3ad5ec93"),
-                            RoleId = new Guid("c484027e-f680-4662-8997-99d15fd1ee79")
+                            UserId = new Guid("4e5b08ad-e119-4346-95ff-578b3f0e13b5"),
+                            RoleId = new Guid("461689a4-1f27-4cc3-8bcb-58693b67c57b")
                         });
                 });
 
@@ -488,7 +491,7 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.HasOne("ApartmentManagementSystem.Entities.Entity.User", "User")
                         .WithOne("Flat")
                         .HasForeignKey("ApartmentManagementSystem.Entities.Entity.Flat", "UserId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Building");
 
@@ -500,7 +503,7 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
                     b.HasOne("ApartmentManagementSystem.Entities.Entity.Flat", "Flats")
                         .WithMany("PaymentInformations")
                         .HasForeignKey("FlatId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ApartmentManagementSystem.Entities.Entity.InvoiceType", "InvoiceType")
@@ -509,8 +512,7 @@ namespace ApartmentManagementSystem.DataAccess.Migrations
 
                     b.HasOne("ApartmentManagementSystem.Entities.Entity.User", "User")
                         .WithMany("PaymentInformations")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Flats");
 

@@ -7,6 +7,7 @@ using ApartmentManagementSystem.Entities.DTOs.FlatDtos;
 using ApartmentManagementSystem.Entities.DTOs.UserDtos;
 using ApartmentManagementSystem.Entities.Entity;
 using AutoMapper;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,15 +20,18 @@ namespace ApartmentManagementSystem.Business.Concrete
     {
         private readonly IFlatRepository _flatRepository;
         private readonly IMapper _mapper;
-
-        public FlatService(IMapper mapper, IFlatRepository flatRepository)
+        private readonly IMemoryCache _memoryCache;
+        public FlatService(IMapper mapper, IFlatRepository flatRepository, IMemoryCache memoryCache)
         {
             _mapper = mapper;
             _flatRepository = flatRepository;
+            _memoryCache = memoryCache;
         }
 
         public async Task<IResult> Add(FlatAddDto entity)
         {
+            string key = "Flats";
+            _memoryCache.Remove(key);
             var flatDto = _mapper.Map<Flat>(entity);
             await _flatRepository.AddAsync(flatDto);
             return new SuccessResult();
@@ -35,6 +39,8 @@ namespace ApartmentManagementSystem.Business.Concrete
 
         public async Task<IResult> AddRangeAsync(List<FlatAddDto> datas)
         {
+            string key = "Flats";
+            _memoryCache.Remove(key);
             var flatDtos = _mapper.Map<List<Flat>>(datas);
             await _flatRepository.AddRangeAsync(flatDtos);
             return new SuccessResult();
@@ -42,6 +48,8 @@ namespace ApartmentManagementSystem.Business.Concrete
 
         public async Task<IResult> Delete(int id)
         {
+            string key = "Flats";
+            _memoryCache.Remove(key);
             await _flatRepository.DeleteAsync(id);
             return new SuccessResult();
         }
@@ -59,6 +67,7 @@ namespace ApartmentManagementSystem.Business.Concrete
 
         public async Task<IResult> FlatPaymentAdd(FlatPaymentAddDto entity)
         {
+            
             var result = await _flatRepository.FlatPaymentAdd(entity);
             if (!result)
             {
@@ -69,8 +78,14 @@ namespace ApartmentManagementSystem.Business.Concrete
 
         public IDataResult<List<FlatGetAllDto>> GetAll()
         {
+            string key = "Flats";
+            if(_memoryCache.TryGetValue(key, out List<FlatGetAllDto>? data))
+            {
+                return new SuccessDataResult<List<FlatGetAllDto>>(data!);
+            }
             var flats = _flatRepository.GetAll();
             var result = _mapper.Map<List<FlatGetAllDto>>(flats);
+            _memoryCache.Set(key, result);
             return new SuccessDataResult<List<FlatGetAllDto>>(result);
         }
 

@@ -3,12 +3,14 @@ using ApartmentManagementSystem.Business.Constants;
 using ApartmentManagementSystem.Core.DataAccess;
 using ApartmentManagementSystem.Core.Utilities;
 using ApartmentManagementSystem.DataAccess.Abstract;
+using ApartmentManagementSystem.Entities.DTOs.FlatDtos;
 using ApartmentManagementSystem.Entities.DTOs.UserDtos;
 using ApartmentManagementSystem.Entities.Entity;
 using AutoMapper;
 using Azure.Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,18 +26,20 @@ namespace ApartmentManagementSystem.Business.Concrete
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
-        private readonly RoleManager<Role> _roleManager;
-        public UserService(IUserRepository userRepository, IMapper mapper, UserManager<User> userManager, RoleManager<Role> roleManager, IRoleService roleService)
+        private readonly IMemoryCache _memoryCache;
+        public UserService(IUserRepository userRepository, IMapper mapper, UserManager<User> userManager, IRoleService roleService, IMemoryCache memoryCache)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _userManager = userManager;
-            _roleManager = roleManager;
             _roleService = roleService;
+            _memoryCache = memoryCache;
         }
 
         public async Task<IDataResult<Guid>> Add(UserAddDto user)
         {
+            string key = "Users";
+            _memoryCache.Remove(key);
             var userDto = _mapper.Map<User>(user);
             
             var result = await _userManager.CreateAsync(userDto, user.Password);
@@ -60,14 +64,22 @@ namespace ApartmentManagementSystem.Business.Concrete
 
         public async Task<IResult> Delete(Guid id)
         {
+            string key = "Users";
+            _memoryCache.Remove(key);
             await _userRepository.DeleteAsync(id);
             return new SuccessResult();
         }
 
         public IDataResult<List<UserGetAllDto>> GetAll()
         {
+            string key = "Users";
+            if (_memoryCache.TryGetValue(key, out List<UserGetAllDto>? data))
+            {
+                return new SuccessDataResult<List<UserGetAllDto>>(data!);
+            }
             var users = _userRepository.GetAll();
             var result = _mapper.Map<List<UserGetAllDto>>(users);
+            _memoryCache.Set(key, result);
             return new SuccessDataResult<List<UserGetAllDto>>(result);
         }
 
