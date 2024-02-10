@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace ApartmentManagementSystem.WebAPI.Controllers
 {
-    //[Authorize(Roles = "Kiracı")]
+    [Authorize(Roles = "Kiracı")]
     [Route("api/[controller]")]
     [ApiController]
     public class PaymentInformationForUsersController : ControllerBase
