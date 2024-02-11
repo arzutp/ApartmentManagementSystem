@@ -27,6 +27,9 @@ namespace ApartmentManagementSystem.Business.Concrete
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly IMemoryCache _memoryCache;
+
+        string key = "Users";
+
         public UserService(IUserRepository userRepository, IMapper mapper, UserManager<User> userManager, IRoleService roleService, IMemoryCache memoryCache)
         {
             _userRepository = userRepository;
@@ -38,7 +41,7 @@ namespace ApartmentManagementSystem.Business.Concrete
 
         public async Task<IDataResult<Guid>> Add(UserAddDto user)
         {
-            string key = "Users";
+            
             _memoryCache.Remove(key);
             var userDto = _mapper.Map<User>(user);
             
@@ -64,7 +67,6 @@ namespace ApartmentManagementSystem.Business.Concrete
 
         public async Task<IResult> Delete(Guid id)
         {
-            string key = "Users";
             _memoryCache.Remove(key);
             await _userRepository.DeleteAsync(id);
             return new SuccessResult();
@@ -72,7 +74,6 @@ namespace ApartmentManagementSystem.Business.Concrete
 
         public IDataResult<List<UserGetAllDto>> GetAll()
         {
-            string key = "Users";
             if (_memoryCache.TryGetValue(key, out List<UserGetAllDto>? data))
             {
                 return new SuccessDataResult<List<UserGetAllDto>>(data!);
@@ -92,6 +93,7 @@ namespace ApartmentManagementSystem.Business.Concrete
 
         public async Task<IResult> Update(UserUpdateDto user)
         {
+            _memoryCache.Remove(key);
             var updateUser = await _userManager.FindByIdAsync(user.Id.ToString());
             if (updateUser == null)
             {

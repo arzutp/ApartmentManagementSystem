@@ -21,6 +21,9 @@ namespace ApartmentManagementSystem.Business.Concrete
         private readonly IFlatRepository _flatRepository;
         private readonly IMapper _mapper;
         private readonly IMemoryCache _memoryCache;
+
+        string key = "Flats";
+
         public FlatService(IMapper mapper, IFlatRepository flatRepository, IMemoryCache memoryCache)
         {
             _mapper = mapper;
@@ -30,7 +33,6 @@ namespace ApartmentManagementSystem.Business.Concrete
 
         public async Task<IResult> Add(FlatAddDto entity)
         {
-            string key = "Flats";
             _memoryCache.Remove(key);
             var flatDto = _mapper.Map<Flat>(entity);
             await _flatRepository.AddAsync(flatDto);
@@ -39,7 +41,6 @@ namespace ApartmentManagementSystem.Business.Concrete
 
         public async Task<IResult> AddRangeAsync(List<FlatAddDto> datas)
         {
-            string key = "Flats";
             _memoryCache.Remove(key);
             var flatDtos = _mapper.Map<List<Flat>>(datas);
             await _flatRepository.AddRangeAsync(flatDtos);
@@ -48,7 +49,6 @@ namespace ApartmentManagementSystem.Business.Concrete
 
         public async Task<IResult> Delete(int id)
         {
-            string key = "Flats";
             _memoryCache.Remove(key);
             await _flatRepository.DeleteAsync(id);
             return new SuccessResult();
@@ -78,7 +78,6 @@ namespace ApartmentManagementSystem.Business.Concrete
 
         public IDataResult<List<FlatGetAllDto>> GetAll()
         {
-            string key = "Flats";
             if(_memoryCache.TryGetValue(key, out List<FlatGetAllDto>? data))
             {
                 return new SuccessDataResult<List<FlatGetAllDto>>(data!);
@@ -111,7 +110,6 @@ namespace ApartmentManagementSystem.Business.Concrete
 
         public async Task<IResult> Update(FlatUpdateDto entity)
         {
-            string key = "Flats";
             _memoryCache.Remove(key);
             var flatDto = _mapper.Map<Flat>(entity);
             await _flatRepository.Update(flatDto);
