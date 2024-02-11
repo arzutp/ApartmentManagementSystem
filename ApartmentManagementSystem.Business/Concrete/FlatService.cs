@@ -85,7 +85,7 @@ namespace ApartmentManagementSystem.Business.Concrete
             }
             var flats = _flatRepository.GetAll();
             var result = _mapper.Map<List<FlatGetAllDto>>(flats);
-            _memoryCache.Set(key, result);
+            _memoryCache.Set(key, result, TimeSpan.FromHours(1));
             return new SuccessDataResult<List<FlatGetAllDto>>(result);
         }
 
@@ -111,6 +111,8 @@ namespace ApartmentManagementSystem.Business.Concrete
 
         public async Task<IResult> Update(FlatUpdateDto entity)
         {
+            string key = "Flats";
+            _memoryCache.Remove(key);
             var flatDto = _mapper.Map<Flat>(entity);
             await _flatRepository.Update(flatDto);
             return new SuccessResult();

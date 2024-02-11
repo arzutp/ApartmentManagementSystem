@@ -19,7 +19,7 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
 
         public RegularlyPayUser GetByInvoiceName(string invoiceName)
         {
-            var result = _context.Set<RegularlyPayUser>().Include(x=>x.InvoiceType).FirstOrDefault(x=>x.InvoiceType.Name == invoiceName);
+            var result = _context.Set<RegularlyPayUser>().Include(x=>x.InvoiceType).FirstOrDefault(x=>x.InvoiceType.Name.ToLower() == invoiceName.ToLower());
             return result;
         }
 
@@ -32,7 +32,7 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
                 {
                     UserName = x.User.Name,
                     UserSurname = x.User.Surname,
-                    Index = index
+                    Index = x.Index
                 }).ToList();
             return results;
         }
@@ -40,7 +40,7 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
         public List<RegularlyPayUser> RegularlyPayUserGetByYear(int year, string name, int index)
         {
             var invoiceTypeName = GetByInvoiceName(name);
-            var result = _context.Set<RegularlyPayUser>().Where(x => x.Year == year && x.InvoiceTypeId == invoiceTypeName.InvoiceTypeId && x.Index == index).ToList();
+            var result = _context.Set<RegularlyPayUser>().Where(x => x.Year == year && x.InvoiceTypeId == invoiceTypeName.InvoiceTypeId && x.Index >= index).ToList();
             return result;
         }
 

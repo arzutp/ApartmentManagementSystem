@@ -1,4 +1,5 @@
 ﻿using ApartmentManagementSystem.Business.Abstract;
+using ApartmentManagementSystem.Business.Constants;
 using ApartmentManagementSystem.Business.Extensions;
 using ApartmentManagementSystem.Core.BaseEntity;
 using ApartmentManagementSystem.Core.Utilities;
@@ -153,7 +154,7 @@ namespace ApartmentManagementSystem.Business.Concrete
         public async Task<IDataResult<decimal>> UserPayInvoice(int entity, string paymendType, Guid userId)
         {
             var price = await _repository.UserPayInvoice(entity, paymendType, userId);
-            return new SuccessDataResult<decimal>(price, "ödeme yaptınız");
+            return new SuccessDataResult<decimal>(price, Messages.Paid);
         }
 
     }

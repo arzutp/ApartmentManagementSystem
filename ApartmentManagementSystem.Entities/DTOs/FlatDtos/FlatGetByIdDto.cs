@@ -8,6 +8,7 @@ namespace ApartmentManagementSystem.Entities.DTOs.FlatDtos
 {
     public class FlatGetByIdDto : FlatBaseReadDto
     {
+        public int BuildingId { get; set; }
         public Guid UserId { get; set; }
     }
 }

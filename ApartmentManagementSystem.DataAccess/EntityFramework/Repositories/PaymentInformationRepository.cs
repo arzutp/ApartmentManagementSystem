@@ -40,21 +40,21 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Repositories
                                         .Include(p=>p.InvoiceType)
                                         .Include(P=>P.Flats)
                                         .ThenInclude(p=>p.User)
-                                        .Select(x=> new PaymentGetByMonth
-            {
-                IsPayed = x.IsPayed,
-                Price = x.Price,
-                Year = x.Year,
-                Month = x.Month,
-                InvoiceType = x.InvoiceType.Name,
-                Block = x.Flats.Block,
-                Floor = x.Flats.Floor,
-                FlatNumber = x.Flats.FlatNumber,
-                PhoneNumber = x.User.PhoneNumber,
-                Name = x.User.Name,
-                Surname = x.User.Surname
+                                        .Select(x=>new PaymentGetByMonth
+                                        {
+                                            IsPayed = x.IsPayed,
+                                            Price = x.Price,
+                                            Year = x.Year,
+                                            Month = x.Month,
+                                            InvoiceType = x.InvoiceType.Name,
+                                            Block = x.Flats.Block,
+                                            Floor = x.Flats.Floor,
+                                            FlatNumber = x.Flats.FlatNumber,
+                                            PhoneNumber = x.User.PhoneNumber,
+                                            Name = x.User.Name,
+                                            Surname = x.User.Surname
 
-            }).ToListAsync();
+                                        }).ToListAsync();
             return result;
         }
 

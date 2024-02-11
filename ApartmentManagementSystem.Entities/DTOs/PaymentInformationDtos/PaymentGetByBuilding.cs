@@ -13,6 +13,5 @@ namespace ApartmentManagementSystem.Entities.DTOs.PaymentInformationDtos
         public int FlatNumber { get; set; }
         public string BuildingName { get; set; }
         public int BuildingNumber { get; set; }
-        public List<Flat> Flats { get; set; }
     }
 }

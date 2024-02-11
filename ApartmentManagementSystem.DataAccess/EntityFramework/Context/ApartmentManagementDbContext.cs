@@ -28,20 +28,6 @@ namespace ApartmentManagementSystem.DataAccess.EntityFramework.Context
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
-            //builder.Entity<Flat>()
-            //    .HasMany(f => f.PaymentInformations)
-            //    .WithOne(p => p.Flats)
-            //    .OnDelete(DeleteBehavior.Cascade); 
-
-            builder.Entity<User>()
-                .HasOne(u=>u.Flat)
-                .WithOne(p => p.User)
-                .OnDelete(DeleteBehavior.NoAction);
-
-            builder.Entity<User>()
-                .HasMany(u=>u.PaymentInformations)
-                .WithOne(p => p.User)
-                .OnDelete(DeleteBehavior.Cascade);
             //admin add
             var adminUserId = Guid.NewGuid();
             var adminRoleId = Guid.NewGuid();
