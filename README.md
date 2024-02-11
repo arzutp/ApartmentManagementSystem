@@ -29,7 +29,7 @@ Projeyi çalıştırmak için:
 <img src="https://img.shields.io/badge/-Entity%20Framework-red"></img><br/>
 <img src="https://img.shields.io/badge/-AutoMapper-purple"></img><br/>
 <img src="https://img.shields.io/badge/-Identity-orange"></img><br/>
-<img src="https://img.shields.io/badge/-Sql%20Server-brightgreen"></img><br/>
+<img src="https://img.shields.io/badge/-Sql%20Server-yellow"></img><br/>
 <img src="https://img.shields.io/badge/-UnitOfWork-darkblue"></img><br/>
 <img src="https://img.shields.io/badge/-json-blue"></img><br/>
 
