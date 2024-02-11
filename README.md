@@ -8,6 +8,7 @@ Bu proje bir site yönetim projesidir. Site yönetici yeni binalar ve daireler e
 Projeyi çalıştırmak için: 
 - Projeyi klonlayın.
 - Projede bulunan appsettings.Development kısmından SqlServer bağlantı dizesini kendi local veritabanı bağlantısı ile değiştirin.
+- Projedeki WebApi üzerinde sağ tıklayıp Set as Startup Project'e tıklayın.
 - Daha sonra Package Manager Console'u açın ve Default Project kısmını DataAccess olarak değiştirin.
 - Add-migration komutunu giriniz.
 ```bash
