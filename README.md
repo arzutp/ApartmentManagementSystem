@@ -10,11 +10,7 @@ Projeyi çalıştırmak için:
 - Projede bulunan appsettings.Development kısmından SqlServer bağlantı dizesini kendi local veritabanı bağlantısı ile değiştirin.
 - Projedeki WebApi üzerinde sağ tıklayıp Set as Startup Project'e tıklayın.
 - Daha sonra Package Manager Console'u açın ve Default Project kısmını DataAccess olarak değiştirin.
-- Add-migration komutunu giriniz.
-```bash
-  add-migration init
-```
-- Daha sonra update-database komutu ile veritabanını kurunuz
+- update-database komutu ile veritabanını kurunuz
 ```bash
   update-database
 ```
