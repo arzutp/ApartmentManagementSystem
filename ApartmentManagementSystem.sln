@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34408.163
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApartmentManagementSystem.Entities", "ApartmentManagementSystem.Entities\ApartmentManagementSystem.Entities.csproj", "{8C48D7FD-A6CF-490D-BCBB-A92AEB98CE6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApartmentManagementSystem.Entities", "ApartmentManagementSystem.Entities\ApartmentManagementSystem.Entities.csproj", "{8C48D7FD-A6CF-490D-BCBB-A92AEB98CE6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApartmentManagementSystem.DataAccess", "ApartmentManagementSystem.DataAccess\ApartmentManagementSystem.DataAccess.csproj", "{CC1BB6E5-5AE8-4CDE-A719-1AFE308F6C1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApartmentManagementSystem.DataAccess", "ApartmentManagementSystem.DataAccess\ApartmentManagementSystem.DataAccess.csproj", "{CC1BB6E5-5AE8-4CDE-A719-1AFE308F6C1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApartmentManagementSystem.Business", "ApartmentManagementSystem.Business\ApartmentManagementSystem.Business.csproj", "{C3EA4B68-487B-485C-B3C0-91F0F4AF91AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApartmentManagementSystem.Business", "ApartmentManagementSystem.Business\ApartmentManagementSystem.Business.csproj", "{C3EA4B68-487B-485C-B3C0-91F0F4AF91AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApartmentManagementSystem.Core", "ApartmentManagementSystem.Core\ApartmentManagementSystem.Core.csproj", "{13ACB2FE-823C-4B23-A42C-4CC2B36936EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApartmentManagementSystem.Core", "ApartmentManagementSystem.Core\ApartmentManagementSystem.Core.csproj", "{13ACB2FE-823C-4B23-A42C-4CC2B36936EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApartmentManagementSystem.WebAPI", "ApartmentManagementSystem.WebAPI\ApartmentManagementSystem.WebAPI.csproj", "{B04E340F-5EF5-404C-A11A-049D6A635795}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApartmentManagementSystem.WebAPI", "ApartmentManagementSystem.WebAPI\ApartmentManagementSystem.WebAPI.csproj", "{B04E340F-5EF5-404C-A11A-049D6A635795}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
