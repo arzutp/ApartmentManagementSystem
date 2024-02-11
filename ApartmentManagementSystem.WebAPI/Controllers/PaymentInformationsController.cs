@@ -10,7 +10,7 @@ using System.Security.Claims;
 
 namespace ApartmentManagementSystem.WebAPI.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class PaymentInformationsController : ControllerBase
