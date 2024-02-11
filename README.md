@@ -35,7 +35,7 @@ Api
 
 <hr>
 
-## 4- Kullanılan Teknolojiler 
+## Kullanılan Teknolojiler 
 <img src="https://img.shields.io/badge/-C%23-lemon"></img><br/>
 <img src="https://img.shields.io/badge/-ASP.NET%20CORE%20-purple"></img><br/>
 <img src="https://img.shields.io/badge/-Entity%20Framework-red"></img><br/>
@@ -45,8 +45,14 @@ Api
 <img src="https://img.shields.io/badge/-UnitOfWork-darkblue"></img><br/>
 <img src="https://img.shields.io/badge/-json-blue"></img><br/>
 
+<img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdWpzamh5M2RqM3RsMTl4NjdsZ3ZpMHVuNWZlZmpoamxhMGZrN3J1MyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L1R1tvI9svkIWwpVYr/giphy.gif"></img>
 
-
+# How to reach me?
+<div id="badges">
+  <a href="https://www.linkedin.com/in/arzutepe/">
+    <img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/>
+  </a>  
+</div>
 
 ## Authors
 
