@@ -23,6 +23,18 @@ Projeyi çalıştırmak için:
 
 <hr>
 
+### Project Images
+Database
+<img src="https://github.com/arzutp/ApartmentManagementSystem/blob/master/Images/Database.png"/>
+Api
+<img src="https://github.com/arzutp/ApartmentManagementSystem/blob/master/Images/1.png"/>
+<img src="https://github.com/arzutp/ApartmentManagementSystem/blob/master/Images/2.png"/>
+<img src="https://github.com/arzutp/ApartmentManagementSystem/blob/master/Images/3.png"/>
+<img src="https://github.com/arzutp/ApartmentManagementSystem/blob/master/Images/4.png"/>
+<img src="https://github.com/arzutp/ApartmentManagementSystem/blob/master/Images/5.png"/>
+
+<hr>
+
 ## 4- Kullanılan Teknolojiler 
 <img src="https://img.shields.io/badge/-C%23-lemon"></img><br/>
 <img src="https://img.shields.io/badge/-ASP.NET%20CORE%20-purple"></img><br/>
